@@ -1,0 +1,76 @@
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./audio:/data/audio:ro
+      - /opt/sync-walk/certbot/conf:/etc/letsencrypt:ro
+    depends_on:
+      - nextjs
+      - api
+    restart: unless-stopped
+
+  nextjs:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_WS_URL: ${NEXT_PUBLIC_WS_URL}
+        NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+    expose:
+      - "3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL}
+      - NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    expose:
+      - "8000"
+    env_file:
+      - .env
+    environment:
+      - WAYFORPAY_MERCHANT_ACCOUNT=${WAYFORPAY_MERCHANT_ACCOUNT}
+      - WAYFORPAY_MERCHANT_SECRET=${WAYFORPAY_MERCHANT_SECRET}
+      - WAYFORPAY_MERCHANT_DOMAIN=${WAYFORPAY_MERCHANT_DOMAIN}
+      - WAYFORPAY_MERCHANT_AUTH_TYPE=${WAYFORPAY_MERCHANT_AUTH_TYPE:-SimpleSignature}
+      - WAYFORPAY_MERCHANT_TRANSACTION_SECURE_TYPE=${WAYFORPAY_MERCHANT_TRANSACTION_SECURE_TYPE:-AUTO}
+      - WAYFORPAY_ORDER_TIMEOUT=${WAYFORPAY_ORDER_TIMEOUT:-86400}
+      - WAYFORPAY_LANGUAGE=${WAYFORPAY_LANGUAGE:-UA}
+      - FRONTEND_PUBLIC_URL=${FRONTEND_PUBLIC_URL}
+      - BACKEND_PUBLIC_URL=${BACKEND_PUBLIC_URL}
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redisdata:/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:

@@ -1,0 +1,14 @@
+.env
+*.pyc
+__pycache__/
+.venv/
+node_modules/
+.next/
+*.egg-info/
+dist/
+build/
+.DS_Store
+*.log
+backups/
+audio/**/*.mp3
+!audio/.gitkeep

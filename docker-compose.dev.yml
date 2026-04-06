@@ -1,0 +1,78 @@
+services:
+  nginx:
+    image: alpine:latest
+    entrypoint: ["echo", "nginx disabled in dev"]
+    restart: "no"
+    profiles:
+      - disabled
+
+  nextjs:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/app:/app/app
+      - ./frontend/components:/app/components
+      - ./frontend/store:/app/store
+      - ./frontend/lib:/app/lib
+      - ./frontend/hooks:/app/hooks
+      - ./frontend/public:/app/public
+      - ./frontend/styles:/app/styles
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_WS_URL=http://localhost:8000
+      - NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - postgres
+    volumes:
+      - type: bind
+        source: ./backend/app
+        target: /app/app
+      - type: bind
+        source: ./backend/alembic
+        target: /app/alembic
+      - type: bind
+        source: ./backend/alembic.ini
+        target: /app/alembic.ini
+      - type: bind
+        source: ./audio
+        target: /app/audio
+        read_only: true
+    environment:
+      - AUDIO_DIR=/app/audio
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql+asyncpg://syncwalk:changeme@postgres:5432/syncwalk
+      - WAYFORPAY_MERCHANT_ACCOUNT=${WAYFORPAY_MERCHANT_ACCOUNT}
+      - WAYFORPAY_MERCHANT_SECRET=${WAYFORPAY_MERCHANT_SECRET}
+      - WAYFORPAY_MERCHANT_DOMAIN=${WAYFORPAY_MERCHANT_DOMAIN}
+      - WAYFORPAY_MERCHANT_AUTH_TYPE=${WAYFORPAY_MERCHANT_AUTH_TYPE:-SimpleSignature}
+      - WAYFORPAY_MERCHANT_TRANSACTION_SECURE_TYPE=${WAYFORPAY_MERCHANT_TRANSACTION_SECURE_TYPE:-AUTO}
+      - WAYFORPAY_ORDER_TIMEOUT=${WAYFORPAY_ORDER_TIMEOUT:-86400}
+      - WAYFORPAY_LANGUAGE=${WAYFORPAY_LANGUAGE:-UA}
+      - FRONTEND_PUBLIC_URL=${FRONTEND_PUBLIC_URL:-http://localhost:3000}
+      - BACKEND_PUBLIC_URL=${BACKEND_PUBLIC_URL:-http://localhost:8000}
+    command: uvicorn app.main:socket_app --host 0.0.0.0 --port 8000 --reload
+
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: syncwalk
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: syncwalk
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
