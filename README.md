@@ -4,8 +4,8 @@ SyncWalk is a full-stack audio tour platform with solo and group listening modes
 
 ## Tech stack
 
-- Frontend: Next.js, React, TypeScript, Tailwind CSS, Zustand, Socket.IO client
-- Backend: FastAPI, SQLAlchemy, Alembic, Redis, Socket.IO server
+- Frontend: Next.js, TypeScript, Tailwind CSS, Zustand, Socket.IO client
+- Backend: FastAPI, SQLAlchemy, Alembic, Redis, PostgreSQL, Socket.IO server
 - Infrastructure: Docker Compose, Nginx
 - Payments: WayForPay
 
