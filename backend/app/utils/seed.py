@@ -23,8 +23,8 @@ SEED_TOURS = [
                 "title_uk": "Поштова площа (Річĸовий воĸзал)",
                 "description": "A place where you begin your acquaintance with the Dnipro and the history of Kyiv trade.",  # Місце, де починається знайомство з Дніпром та історією торгівлі Києва.
                 "description_uk": "Місце, де починається знайомство з Дніпром та історією торгівлі Києва.",
-                "latitude": 50.4591,
-                "longitude": 30.5286,
+                "latitude": 50.459101759522916, 
+                "longitude": 30.52700315279664,
                 "audio_url": "/audio/kyiv/podil-1.mp3",
             },
             {
