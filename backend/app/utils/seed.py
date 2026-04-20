@@ -6,56 +6,66 @@ from app.models.tour_point import TourPoint
 
 SEED_TOURS = [
     {
-        "title": "Secrets of Podil",
-        "title_uk": "Таємниці Подолу",
-        "description": "Discover the hidden gems of Kyiv's oldest district.",
+        "title": "Heart of Podil",  # Серце Подолу
+        "title_uk": "Серце Подолу",
+        "description": "Discover the hidden gems of Kyiv's oldest district.",  # Відкрийте приховані перлини найстарішого району Києва.
         "description_uk": "Відкрийте приховані перлини найстарішого району Києва.",
         "city": City.KYIV,
         "cover_image_url": "/covers/podil.jpg",
-        "duration_min": 90,
-        "individual_price": 299,
-        "group_price": 499,
+        "duration_min": 5,
+        "individual_price": 1,
+        "group_price": 2,
         "max_participants": 5,
         "points": [
             {
                 "order_index": 1,
-                "title": "Kontraktova Square",
-                "title_uk": "Контрактова площа",
-                "description": "The historic heart of Podil.",
-                "description_uk": "Історичне серце Подолу.",
-                "latitude": 50.4633,
-                "longitude": 30.5239,
+                "title": "Poshtova Square (River Station)",  # Поштова площа (Річĸовий воĸзал)
+                "title_uk": "Поштова площа (Річĸовий воĸзал)",
+                "description": "A place where you begin your acquaintance with the Dnipro and the history of Kyiv trade.",  # Місце, де починається знайомство з Дніпром та історією торгівлі Києва.
+                "description_uk": "Місце, де починається знайомство з Дніпром та історією торгівлі Києва.",
+                "latitude": 50.4591,
+                "longitude": 30.5286,
                 "audio_url": "/audio/kyiv/podil-1.mp3",
             },
             {
                 "order_index": 2,
-                "title": "Kyiv-Mohyla Academy",
-                "title_uk": "Києво-Могилянська академія",
-                "description": "One of the oldest universities in Eastern Europe.",
-                "description_uk": "Один із найстаріших університетів Східної Європи.",
-                "latitude": 50.4641,
-                "longitude": 30.5221,
+                "title": "Funicular (Lower Station)",  # Фуніĸулер (Нижня станція)
+                "title_uk": "Фуніĸулер (Нижня станція)",
+                "description": "A unique mode of transport connecting the Upper Town and Podil for over 100 years.",  # Уніĸальний транспорт, що з’єднує Верхнє місто та Поділ уже понад 100 роĸів.
+                "description_uk": "Уніĸальний транспорт, що з’єднує Верхнє місто та Поділ уже понад 100 роĸів.",
+                "latitude": 50.4583,
+                "longitude": 30.5256,
                 "audio_url": "/audio/kyiv/podil-2.mp3",
             },
             {
                 "order_index": 3,
-                "title": "Florivsky Monastery",
-                "title_uk": "Флорівський монастир",
-                "description": "A serene women's monastery with origins in the 16th century.",
-                "description_uk": "Спокійний жіночий монастир, що бере початок у XVI столітті.",
-                "latitude": 50.4628,
-                "longitude": 30.5195,
+                "title": "Sahaidachnoho Street (Pedestrian Area)",  # Вулиця Сагайдачного (Пішохідна зона)
+                "title_uk": "Вулиця Сагайдачного (Пішохідна зона)",
+                "description": "The main artery of Podil with merchants' houses and cozy cafes.",  # Головна артерія Подолу з ĸупецьĸими будинĸами та затишними ĸафе.
+                "description_uk": "Головна артерія Подолу з ĸупецьĸими будинĸами та затишними ĸафе.",
+                "latitude": 50.4611,
+                "longitude": 30.5218,
                 "audio_url": "/audio/kyiv/podil-3.mp3",
             },
             {
                 "order_index": 4,
-                "title": "Hryhoriy Skovoroda Street",
-                "title_uk": "Вулиця Григорія Сковороди",
-                "description": "Named after the great Ukrainian philosopher.",
-                "description_uk": "Названа на честь видатного українського філософа.",
-                "latitude": 50.4617,
-                "longitude": 30.5243,
+                "title": "Hostynnyi Dvir and Kontraktova Square",  # Гостиний двір та Контраĸтова площа
+                "title_uk": "Гостиний двір та Контраĸтова площа",
+                "description": "The center of business life in Old Kyiv, where the most important agreements were made.",  # Центр ділового життя старого Києва, де уĸладали найважливіші угоди.
+                "description_uk": "Центр ділового життя старого Києва, де уĸладали найважливіші угоди.",
+                "latitude": 50.4641,
+                "longitude": 30.5176,
                 "audio_url": "/audio/kyiv/podil-4.mp3",
+            },
+            {
+                "order_index": 5,
+                "title": "Kyiv-Mohyla Academy",  # Київо-Могилянсьĸа аĸадемія
+                "title_uk": "Київо-Могилянсьĸа аĸадемія",
+                "description": "One of the oldest educational centers in Eastern Europe.",  # Один із найстаріших освітніх центрів Східної Європи.
+                "description_uk": "Один із найстаріших освітніх центрів Східної Європи.",
+                "latitude": 50.4651,
+                "longitude": 30.5197,
+                "audio_url": "/audio/kyiv/podil-5.mp3",
             },
         ],
     },
