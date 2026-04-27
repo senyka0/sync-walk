@@ -35,7 +35,7 @@ export function RoomDoneContent() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary px-5 page-enter">
+    <div className="flex flex-col min-h-screen bg-background px-5 page-enter">
       <div className="flex flex-col items-center pt-14 pb-8 gap-4">
         <div className="relative w-28 h-28 flex items-center justify-center">
           <div className="absolute inset-0 rounded-full bg-coral/20 animate-ping" />
@@ -45,16 +45,16 @@ export function RoomDoneContent() {
           </div>
         </div>
         <div className="text-center">
-          <h1 className="text-3xl font-black text-white">
+          <h1 className="text-3xl font-black text-foreground">
             {dict.roomDone.title}
           </h1>
-          <p className="text-white/60 text-sm mt-1 text-balance">
+          <p className="text-muted-foreground text-sm mt-1 text-balance">
             {dict.roomDone.subtitle.replace("{city}", cityLabel)}
           </p>
         </div>
       </div>
-      <div className="bg-secondary rounded-2xl p-5 border border-white/10 mb-5">
-        <h2 className="text-base font-bold text-white mb-3">
+      <div className="bg-card rounded-2xl p-5 border border-border mb-5">
+        <h2 className="text-base font-bold text-foreground mb-3">
           {dict.roomDone.howWasIt}
         </h2>
         <textarea
@@ -62,7 +62,7 @@ export function RoomDoneContent() {
           onChange={(e) => setReview(e.target.value)}
           placeholder={dict.roomDone.reviewPlaceholder}
           rows={3}
-          className="w-full bg-primary/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-coral/40 resize-none"
+          className="w-full bg-white border border-border rounded-xl px-4 py-3 text-sm text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-coral/40 resize-none"
         />
       </div>
       <button
@@ -79,7 +79,7 @@ export function RoomDoneContent() {
           leaveRoom();
           router.push("/");
         }}
-        className="w-full text-white/50 text-sm font-medium py-2 active-scale"
+        className="w-full text-muted-foreground text-sm font-medium py-2 active-scale"
       >
         {dict.roomDone.skipReview}
       </button>

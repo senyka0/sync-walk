@@ -51,7 +51,7 @@ export function RoomJoinContent() {
   if (joined) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen px-5 gap-6 page-enter">
-        <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center">
+        <div className="w-20 h-20 rounded-full bg-coral flex items-center justify-center">
           <Headphones className="w-10 h-10 text-white" strokeWidth={1.5} />
         </div>
         <div className="text-center">
@@ -76,17 +76,17 @@ export function RoomJoinContent() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary px-5 page-enter">
+    <div className="flex flex-col min-h-screen bg-background px-5 page-enter">
       <div className="flex-1 flex flex-col justify-center gap-6">
         <div className="flex flex-col items-center gap-3">
           <div className="w-16 h-16 bg-coral rounded-2xl flex items-center justify-center shadow-xl">
             <Headphones className="w-8 h-8 text-white" strokeWidth={1.5} />
           </div>
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-white">
+            <h1 className="text-2xl font-bold text-foreground">
               {dict.roomJoin.title}
             </h1>
-            <p className="text-white/60 text-sm">
+            <p className="text-muted-foreground text-sm">
               {dict.roomJoin.codeLabel}: {code}
             </p>
           </div>

@@ -25,7 +25,7 @@
   --input: #e2e2e8;
   --ring: #E94560;
   --radius: 1rem;
-  --surface: #F5F5F5;
+  --surface: #ffffff;
 
   /* Sidebar */
   --sidebar: #1A1A2E;
@@ -41,7 +41,7 @@
   --navy: #1A1A2E;
   --navy-deep: #16213E;
   --coral: #E94560;
-  --surface-bg: #F5F5F5;
+  --surface-bg: #ffffff;
 }
 
 .dark {
@@ -74,6 +74,8 @@
   --sidebar-accent-foreground: #f0f0f5;
   --sidebar-border: #2a2a4a;
   --sidebar-ring: #E94560;
+  --surface: #ffffff;
+  --surface-bg: #ffffff;
 }
 
 @theme inline {
@@ -125,6 +127,20 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
+  }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
+      [type="file"]
+    ),
+  textarea {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: var(--border);
+  }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
+      [type="file"]
+    )::placeholder,
+  textarea::placeholder {
+    color: #6b7280;
   }
 
   /* Smooth scrolling */

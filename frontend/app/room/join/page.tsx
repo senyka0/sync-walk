@@ -16,11 +16,11 @@ export default function RoomEnterCodePage() {
 
   return (
     <AppShell>
-      <main className="flex flex-col min-h-screen bg-primary px-5 page-enter">
+      <main className="flex flex-col min-h-screen bg-background px-5 page-enter">
         <div className="flex-1 flex flex-col justify-center gap-6">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-white">Join Group Tour</h1>
-            <p className="text-white/70 text-sm mt-1">
+            <h1 className="text-2xl font-bold text-foreground">Join Group Tour</h1>
+            <p className="text-muted-foreground text-sm mt-1">
               Enter the room code shared by your host.
             </p>
           </div>
@@ -31,7 +31,7 @@ export default function RoomEnterCodePage() {
                 value={code}
                 onChange={(e) => setCode(e.target.value.toUpperCase())}
                 placeholder="ROOM CODE"
-                className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-center tracking-[0.3em] text-lg font-bold text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-coral/40"
+                className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-center tracking-[0.3em] text-lg font-bold text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-coral/40"
                 onKeyDown={(e) => e.key === "Enter" && handleContinue()}
                 maxLength={8}
               />

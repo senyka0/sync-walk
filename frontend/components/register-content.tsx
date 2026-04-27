@@ -37,15 +37,15 @@ export function RegisterContent() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary px-5 page-enter">
+    <div className="flex flex-col min-h-screen bg-background px-5 page-enter">
       <div className="flex-1 flex flex-col items-center justify-center gap-8">
         <div className="flex flex-col items-center gap-3">
           <div className="w-16 h-16 bg-coral rounded-2xl flex items-center justify-center shadow-xl">
             <Headphones className="w-8 h-8 text-white" strokeWidth={1.5} />
           </div>
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-white">SyncWalk</h1>
-            <p className="text-white/60 text-sm">
+            <h1 className="text-3xl font-bold text-foreground">SyncWalk</h1>
+            <p className="text-muted-foreground text-sm">
               {dict.auth.createYourAccount}
             </p>
           </div>

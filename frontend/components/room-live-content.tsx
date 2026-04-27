@@ -74,7 +74,9 @@ function SyncDot({
   return (
     <div className="flex items-center gap-1.5">
       <span className={`w-2 h-2 rounded-full ${color} animate-pulse`} />
-      <span className="text-xs font-medium text-white/60">{label}</span>
+      <span className="text-xs font-medium text-muted-foreground dark:text-white/60">
+        {label}
+      </span>
     </div>
   );
 }
@@ -317,7 +319,7 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
     totalDurationMs > 0 ? (effectiveTimeMs / totalDurationMs) * 100 : 0;
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary">
+    <div className="flex flex-col min-h-screen bg-background">
       <div className="relative w-full h-52 bg-secondary shrink-0 overflow-hidden">
         <MapboxRouteMap
           points={tour?.points ?? []}
@@ -349,16 +351,16 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
                 </div>
               ))}
               {participants.length > 4 && (
-                <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white text-[10px] font-bold">
+                <div className="w-7 h-7 rounded-full bg-muted/70 dark:bg-white/20 flex items-center justify-center text-foreground dark:text-white text-[10px] font-bold">
                   +{participants.length - 4}
                 </div>
               )}
             </div>
           )}
           {isSolo && (
-            <div className="flex items-center gap-1 bg-white/10 rounded-full px-3 py-1">
+            <div className="flex items-center gap-1 bg-muted/70 dark:bg-white/10 rounded-full px-3 py-1">
               <MapPin className="w-3 h-3 text-coral" />
-              <span className="text-white/70 text-xs font-medium">
+              <span className="text-muted-foreground dark:text-white/70 text-xs font-medium">
                 {dict.roomLive.soloMode}
               </span>
             </div>
@@ -369,7 +371,7 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
           {dict.common.map}
         </div>
       </div>
-      <div className="flex-1 flex flex-col bg-primary px-5">
+      <div className="flex-1 flex flex-col bg-background px-5">
         <div className="pt-5 pb-3">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 bg-coral/20 text-coral text-[10px] font-bold rounded-full uppercase tracking-wider">
@@ -377,16 +379,16 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
               {tour?.points.length ?? 1}
             </span>
           </div>
-          <h2 className="text-xl font-bold text-white leading-tight text-balance">
+          <h2 className="text-xl font-bold text-foreground leading-tight text-balance">
             {localizedPointTitle || dict.common.loading}
           </h2>
-          <p className="text-sm text-white/50 mt-1 leading-relaxed line-clamp-2">
+          <p className="text-sm text-muted-foreground mt-1 leading-relaxed line-clamp-2">
             {localizedPointDescription}
           </p>
         </div>
         <div className="py-3">
           <div className="relative h-10">
-            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1.5 bg-white/20 rounded-full overflow-hidden">
+            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1.5 bg-muted dark:bg-white/20 rounded-full overflow-hidden">
               <div
                 className="absolute left-0 top-0 h-full bg-coral rounded-full transition-all duration-100"
                 style={{ width: `${progressPercent}%` }}
@@ -407,16 +409,16 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
                 className="absolute inset-0 w-full touch-none"
               >
                 <SliderTrack className="relative w-full h-10 cursor-pointer">
-                  <SliderThumb className="absolute top-1/2 w-5 h-5 rounded-full bg-coral shadow-xl shadow-coral/30 ring-2 ring-white/70" />
+                  <SliderThumb className="absolute top-1/2 w-5 h-5 rounded-full bg-coral shadow-xl shadow-coral/30 ring-2 ring-white/70 dark:ring-white/70" />
                 </SliderTrack>
               </Slider>
             )}
           </div>
           <div className="flex justify-between mt-1.5">
-            <span className="text-xs text-white/40">
+            <span className="text-xs text-muted-foreground dark:text-white/40">
               {formatMs(effectiveTimeMs)}
             </span>
-            <span className="text-xs text-white/40">
+            <span className="text-xs text-muted-foreground dark:text-white/40">
               {formatMs(totalDurationMs)}
             </span>
           </div>
@@ -426,10 +428,10 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
             <div className="flex items-center justify-center gap-8">
               <button
                 onClick={prevTrack}
-                className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center active-scale"
+                className="w-11 h-11 rounded-full bg-coral text-white dark:bg-coral flex items-center justify-center active-scale shadow-md"
                 aria-label={dict.roomLive.previousStop}
               >
-                <SkipBack className="w-5 h-5 text-white" />
+                <SkipBack className="w-5 h-5" />
               </button>
 
               <button
@@ -448,23 +450,23 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
 
               <button
                 onClick={nextTrack}
-                className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center active-scale"
+                className="w-11 h-11 rounded-full bg-coral text-white dark:bg-coral flex items-center justify-center active-scale shadow-md"
                 aria-label={dict.roomLive.nextStop}
               >
-                <SkipForward className="w-5 h-5 text-white" />
+                <SkipForward className="w-5 h-5" />
               </button>
             </div>
 
             <div className="flex items-center gap-3">
               <button
                 onClick={toggleMute}
-                className="active-scale"
+                className="w-11 h-11 rounded-full bg-coral text-white dark:bg-coral flex items-center justify-center active-scale shadow-md"
                 aria-label={isMuted ? dict.roomLive.unmute : dict.roomLive.mute}
               >
                 {isMuted ? (
-                  <VolumeX className="w-5 h-5 text-white/50" />
+                  <VolumeX className="w-5 h-5" />
                 ) : (
-                  <Volume2 className="w-5 h-5 text-white/80" />
+                  <Volume2 className="w-5 h-5" />
                 )}
               </button>
             </div>
@@ -472,7 +474,7 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
             {!isSolo && (
               <button
                 onClick={() => setShowManage(!showManage)}
-                className="w-full flex items-center justify-center gap-2 bg-white/10 rounded-xl py-3 text-sm font-semibold text-white active-scale"
+                className="w-full flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral rounded-xl py-3 text-sm font-semibold active-scale"
               >
                 <Users className="w-4 h-4" />
                 {dict.roomLive.manageGroup.replace(
@@ -530,7 +532,7 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
 
             <button
               onClick={handleEndTour}
-              className="w-full flex items-center justify-center gap-2 bg-white/5 border border-white/10 text-white/60 rounded-xl py-3 text-sm font-semibold active-scale"
+              className="w-full flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral/25 dark:border-coral/40 border border-coral/40 rounded-xl py-3 text-sm font-semibold active-scale"
             >
               <Check className="w-4 h-4" />
               {isSolo ? dict.roomLive.endSoloTour : dict.roomLive.endTour}
@@ -538,9 +540,9 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-center gap-2 bg-white/10 rounded-xl px-4 py-3">
+            <div className="flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral/20 rounded-xl px-4 py-3">
               <Wifi className="w-4 h-4 text-emerald-400" />
-              <span className="text-sm text-white/80">
+              <span className="text-sm text-white/90">
                 {dict.roomLive.listeningWith.replace(
                   "{host}",
                   currentRoom?.hostName ?? dict.roomCreate.host,
@@ -552,8 +554,8 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
               onClick={toggleMute}
               className={`w-full flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold active-scale ${
                 isMuted
-                  ? "bg-coral/20 text-coral border border-coral/30"
-                  : "bg-white/10 text-white"
+                  ? "bg-white text-black border border-border dark:bg-coral/25 dark:text-white dark:border-coral/40"
+                  : "bg-coral text-white dark:bg-coral dark:text-white"
               }`}
             >
               {isMuted ? (
@@ -566,14 +568,14 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
 
             <button
               onClick={handleLeave}
-              className="w-full flex items-center justify-center gap-2 bg-white/5 border border-white/10 text-white/60 rounded-xl py-3 text-sm font-semibold active-scale"
+              className="w-full flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral/25 dark:border-coral/40 border border-coral/40 rounded-xl py-3 text-sm font-semibold active-scale"
             >
               <LogOut className="w-4 h-4" />
               {dict.roomLive.leaveGroup}
             </button>
           </div>
         )}
-        <p className="text-xs text-white/55 mt-auto pt-4 pb-4 text-center">
+        <p className="text-xs text-muted-foreground dark:text-white/55 mt-auto pt-4 pb-4 text-center">
           {dict.roomLive.keepAwakeFallback}
         </p>
       </div>

@@ -73,16 +73,16 @@ export function ProfileContent() {
 
   return (
     <div className="flex flex-col pb-safe page-enter">
-      <div className="bg-primary px-5 pt-8 pb-10 relative overflow-hidden">
+      <div className="bg-card px-5 pt-8 pb-10 relative overflow-hidden border-b border-border">
         <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-coral/20" />
-        <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white/5" />
+        <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-muted/40" />
         <div className="relative flex items-center gap-4">
           <div className="w-16 h-16 rounded-2xl bg-coral flex items-center justify-center text-white text-2xl font-bold ring-2 ring-coral/30">
             {user.name[0]}
           </div>
           <div>
-            <h1 className="text-xl font-bold text-white">{user.name}</h1>
-            <p className="text-sm text-white/60">{user.email}</p>
+            <h1 className="text-xl font-bold text-foreground">{user.name}</h1>
+            <p className="text-sm text-muted-foreground">{user.email}</p>
           </div>
         </div>
       </div>
