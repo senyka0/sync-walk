@@ -144,18 +144,6 @@ export function TourDetailContent() {
           </div>
         </div>
         <div className="flex items-start gap-2">
-          {demoAudioUrl ? (
-            <button
-              type="button"
-              onClick={toggleDemoAudio}
-              aria-label={
-                isDemoPlaying ? dict.roomLive.stop : dict.roomLive.play
-              }
-              className="mt-0.5 shrink-0 w-7 h-7 rounded-full bg-coral text-white text-[11px] font-bold inline-flex items-center justify-center active-scale"
-            >
-              {isDemoPlaying ? "■" : "▶"}
-            </button>
-          ) : null}
           <p className="text-sm text-muted-foreground leading-relaxed">
             {localizedDescription}
           </p>
@@ -189,9 +177,24 @@ export function TourDetailContent() {
           ) : null}
         </div>
         <div>
-          <h2 className="text-base font-bold text-foreground mb-3">
-            {dict.tour.tourStops}
-          </h2>
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <h2 className="text-base font-bold text-foreground">
+              {dict.tour.tourStops}
+            </h2>
+            {demoAudioUrl ? (
+              <button
+                type="button"
+                onClick={toggleDemoAudio}
+                aria-label={
+                  isDemoPlaying ? dict.roomLive.stop : dict.roomLive.play
+                }
+                className="shrink-0 inline-flex items-center gap-2 rounded-full bg-coral px-3 py-1.5 text-xs font-semibold text-white active-scale"
+              >
+                <span>{isDemoPlaying ? "■" : "▶"}</span>
+                <span>{language === "uk" ? "Демо" : "Demo"}</span>
+              </button>
+            ) : null}
+          </div>
           <div className="flex flex-col gap-2">
             {tour.points.map((point, index) => (
               <div
