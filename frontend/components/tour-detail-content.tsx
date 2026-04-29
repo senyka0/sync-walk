@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
+import { API_URL } from "@/lib/api";
 import { ArrowLeft, Clock, MapPin, Navigation } from "lucide-react";
 import Link from "next/link";
 import { MapboxRouteMap } from "@/components/mapbox-route-map";
@@ -11,6 +12,8 @@ import { MapboxRouteMap } from "@/components/mapbox-route-map";
 export function TourDetailContent() {
   const params = useParams();
   const router = useRouter();
+  const demoAudioRef = useRef<HTMLAudioElement | null>(null);
+  const [isDemoPlaying, setIsDemoPlaying] = useState(false);
   const {
     fetchTourById,
     currentTour,
@@ -23,6 +26,15 @@ export function TourDetailContent() {
   useEffect(() => {
     if (params.id) fetchTourById(params.id as string);
   }, [params.id, fetchTourById]);
+
+  useEffect(() => {
+    const audio = demoAudioRef.current;
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+    setIsDemoPlaying(false);
+  }, [currentTour?.id, language]);
 
   if (!currentTour) {
     return (
@@ -51,6 +63,18 @@ export function TourDetailContent() {
   const directionsUrl = startPoint
     ? `https://www.google.com/maps/dir/?api=1&destination=${startPoint.latitude},${startPoint.longitude}&travelmode=walking`
     : null;
+  const sourceAudioPath =
+    language === "uk" && startPoint?.audioUrlUk
+      ? startPoint.audioUrlUk
+      : (startPoint?.audioUrl ?? "");
+  const demoAudioPath = sourceAudioPath
+    ? /-\d+\.mp3$/i.test(sourceAudioPath)
+      ? sourceAudioPath.replace(/-\d+\.mp3$/i, "-description.mp3")
+      : sourceAudioPath.replace(/\.mp3$/i, "-description.mp3")
+    : "";
+  const demoAudioUrl = demoAudioPath
+    ? `${API_URL.replace(/\/$/, "")}${demoAudioPath.startsWith("/") ? demoAudioPath : `/${demoAudioPath}`}`
+    : "";
   const cityLabel =
     language === "uk"
       ? tour.city === "kyiv"
@@ -59,6 +83,22 @@ export function TourDetailContent() {
       : tour.city === "kyiv"
         ? "Kyiv"
         : "Kharkiv";
+
+  const toggleDemoAudio = async () => {
+    const audio = demoAudioRef.current;
+    if (!audio) return;
+    if (isDemoPlaying) {
+      audio.pause();
+      audio.currentTime = 0;
+      setIsDemoPlaying(false);
+      return;
+    }
+    audio.currentTime = 0;
+    try {
+      await audio.play();
+      setIsDemoPlaying(true);
+    } catch {}
+  };
 
   return (
     <div className="flex flex-col pb-36">
@@ -103,10 +143,31 @@ export function TourDetailContent() {
             </span>
           </div>
         </div>
-        <div>
+        <div className="flex items-start gap-2">
+          {demoAudioUrl ? (
+            <button
+              type="button"
+              onClick={toggleDemoAudio}
+              aria-label={
+                isDemoPlaying ? dict.roomLive.stop : dict.roomLive.play
+              }
+              className="mt-0.5 shrink-0 w-7 h-7 rounded-full bg-coral text-white text-[11px] font-bold inline-flex items-center justify-center active-scale"
+            >
+              {isDemoPlaying ? "■" : "▶"}
+            </button>
+          ) : null}
           <p className="text-sm text-muted-foreground leading-relaxed">
             {localizedDescription}
           </p>
+          {demoAudioUrl ? (
+            <audio
+              ref={demoAudioRef}
+              preload="none"
+              src={demoAudioUrl}
+              onEnded={() => setIsDemoPlaying(false)}
+              className="hidden"
+            />
+          ) : null}
         </div>
         <div>
           <h2 className="text-base font-bold text-foreground mb-3">

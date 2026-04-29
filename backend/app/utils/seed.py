@@ -8,8 +8,8 @@ SEED_TOURS = [
     {
         "title": "Heart of Podil",  # Серце Подолу
         "title_uk": "Серце Подолу",
-        "description": "Discover the hidden gems of Kyiv's oldest district.",  # Відкрийте приховані перлини найстарішого району Києва.
-        "description_uk": "Відкрийте приховані перлини найстарішого району Києва.",
+        "description": "The “Heart of Podil” tour is a short walk through Kyiv’s oldest district, starting at Poshtova Square by the Dnipro River, passing the historic Kyiv Funicular and lively Sahaidachnoho Street, continuing to Kontraktova Square with Gostinyi Dvir, and ending at Kyiv-Mohyla Academy—a symbol of the city’s cultural and educational heritage.",  # Відкрийте приховані перлини найстарішого району Києва.
+        "description_uk": "Тур «Серце Подолу» — це коротка прогулянка найстарішим районом Києва: від Поштова площа уздовж Дніпра через Київський фунікулер і жваву Вулиця Сагайдачного до Контрактова площа з Гостиний двір, завершуючись біля Києво-Могилянська академія — символу освіти й культури старого міста.",
         "city": City.KYIV,
         "cover_image_url": "/covers/podil.jpg",
         "duration_min": 5,
@@ -23,7 +23,7 @@ SEED_TOURS = [
                 "title_uk": "Поштова площа (Річĸовий воĸзал)",
                 "description": "A place where you begin your acquaintance with the Dnipro and the history of Kyiv trade.",  # Місце, де починається знайомство з Дніпром та історією торгівлі Києва.
                 "description_uk": "Місце, де починається знайомство з Дніпром та історією торгівлі Києва.",
-                "latitude": 50.459101759522916, 
+                "latitude": 50.459101759522916,
                 "longitude": 30.52700315279664,
                 "audio_url": "/audio/kyiv/podil-1.mp3",
             },
