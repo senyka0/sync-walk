@@ -24,28 +24,34 @@ export function GoogleAuthButton({ successMessage }: GoogleAuthButtonProps) {
     if (!googleClientId || !googleButtonRef.current) return;
 
     const initializeGoogle = () => {
-      const google = (window as Window & {
-        google?: {
-          accounts?: {
-            id?: {
-              initialize: (config: {
-                client_id: string;
-                callback: (response: { credential?: string }) => void;
-              }) => void;
-              renderButton: (
-                element: HTMLElement,
-                options: {
-                  theme: "outline" | "filled_blue" | "filled_black";
-                  size: "large" | "medium" | "small";
-                  shape: "rectangular" | "pill" | "circle" | "square";
-                  text: "signin_with" | "signup_with" | "continue_with" | "signin";
-                  width?: string | number;
-                },
-              ) => void;
+      const google = (
+        window as Window & {
+          google?: {
+            accounts?: {
+              id?: {
+                initialize: (config: {
+                  client_id: string;
+                  callback: (response: { credential?: string }) => void;
+                }) => void;
+                renderButton: (
+                  element: HTMLElement,
+                  options: {
+                    theme: "outline" | "filled_blue" | "filled_black";
+                    size: "large" | "medium" | "small";
+                    shape: "rectangular" | "pill" | "circle" | "square";
+                    text:
+                      | "signin_with"
+                      | "signup_with"
+                      | "continue_with"
+                      | "signin";
+                    width?: string | number;
+                  },
+                ) => void;
+              };
             };
           };
-        };
-      }).google;
+        }
+      ).google;
 
       const googleId = google?.accounts?.id;
       if (!googleId || !googleButtonRef.current) return;
@@ -107,7 +113,13 @@ export function GoogleAuthButton({ successMessage }: GoogleAuthButtonProps) {
     return () => {
       script.onload = null;
     };
-  }, [googleClientId, loginWithGoogle, router, dict.auth.googleLoginFailed, successMessage]);
+  }, [
+    googleClientId,
+    loginWithGoogle,
+    router,
+    dict.auth.googleLoginFailed,
+    successMessage,
+  ]);
 
   if (!googleClientId) return null;
 

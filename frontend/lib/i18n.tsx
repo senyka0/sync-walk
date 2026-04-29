@@ -143,6 +143,7 @@ const dictionary = {
     tour: {
       routeOverview: "Route Overview",
       tourStops: "Tour Stops",
+      getToStartPoint: "How to get to start point",
       fromPrice: "from ₴{price}",
       groupPrice: "group ₴{price}",
       listenSolo: "Listen solo",
@@ -337,6 +338,7 @@ const dictionary = {
     tour: {
       routeOverview: "Огляд маршруту",
       tourStops: "Зупинки туру",
+      getToStartPoint: "Як дістатися до точки старту",
       fromPrice: "від ₴{price}",
       groupPrice: "група ₴{price}",
       listenSolo: "Слухати соло",

@@ -47,6 +47,10 @@ export function TourDetailContent() {
     language === "uk"
       ? (tour.descriptionUk ?? tour.description)
       : tour.description;
+  const startPoint = tour.points[0];
+  const directionsUrl = startPoint
+    ? `https://www.google.com/maps/dir/?api=1&destination=${startPoint.latitude},${startPoint.longitude}&travelmode=walking`
+    : null;
   const cityLabel =
     language === "uk"
       ? tour.city === "kyiv"
@@ -111,6 +115,17 @@ export function TourDetailContent() {
           <div className="w-full h-44 rounded-2xl bg-secondary/10 border border-border relative overflow-hidden">
             <MapboxRouteMap points={tour.points} className="w-full h-full" />
           </div>
+          {directionsUrl ? (
+            <a
+              href={directionsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 text-sm font-medium text-foreground active-scale"
+            >
+              <Navigation className="w-4 h-4 text-coral" />
+              <span>{dict.tour.getToStartPoint}</span>
+            </a>
+          ) : null}
         </div>
         <div>
           <h2 className="text-base font-bold text-foreground mb-3">

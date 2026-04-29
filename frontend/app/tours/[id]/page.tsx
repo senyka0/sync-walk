@@ -1,5 +1,5 @@
-import AppShell from "@/components/app-shell"
-import { TourDetailContent } from "@/components/tour-detail-content"
+import AppShell from "@/components/app-shell";
+import { TourDetailContent } from "@/components/tour-detail-content";
 
 export default function TourDetailPage() {
   return (
@@ -8,5 +8,5 @@ export default function TourDetailPage() {
         <TourDetailContent />
       </main>
     </AppShell>
-  )
+  );
 }
