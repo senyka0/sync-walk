@@ -14,6 +14,10 @@ class UserLogin(BaseModel):
     password: str
 
 
+class GoogleAuthRequest(BaseModel):
+    id_token: str
+
+
 class UserResponse(BaseModel):
     id: uuid.UUID
     name: str

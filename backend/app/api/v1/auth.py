@@ -4,8 +4,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.user import User
-from app.schemas.user import TokenResponse, UserLogin, UserRegister, UserResponse
-from app.services.auth import login_user, register_user
+from app.schemas.user import GoogleAuthRequest, TokenResponse, UserLogin, UserRegister, UserResponse
+from app.services.auth import google_auth_user, login_user, register_user
 
 router = APIRouter()
 
@@ -22,6 +22,14 @@ async def register(data: UserRegister, db: AsyncSession = Depends(get_db)):
 async def login(data: UserLogin, db: AsyncSession = Depends(get_db)):
     try:
         return await login_user(db, data.email, data.password)
+    except ValueError as e:
+        raise HTTPException(status_code=401, detail=str(e))
+
+
+@router.post("/google", response_model=TokenResponse)
+async def google_auth(data: GoogleAuthRequest, db: AsyncSession = Depends(get_db)):
+    try:
+        return await google_auth_user(db, data.id_token)
     except ValueError as e:
         raise HTTPException(status_code=401, detail=str(e))
 

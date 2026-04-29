@@ -8,6 +8,7 @@ import { useI18n } from "@/lib/i18n";
 import { getApiErrorMessage } from "@/lib/api";
 import { Headphones, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
+import { GoogleAuthButton } from "@/components/google-auth-button";
 
 export function LoginContent() {
   const router = useRouter();
@@ -45,7 +46,9 @@ export function LoginContent() {
           </div>
           <div className="text-center">
             <h1 className="text-3xl font-bold text-foreground">SyncWalk</h1>
-            <p className="text-muted-foreground text-sm">{dict.auth.appSubtitle}</p>
+            <p className="text-muted-foreground text-sm">
+              {dict.auth.appSubtitle}
+            </p>
           </div>
         </div>
         <div className="w-full bg-card rounded-2xl p-6 shadow-xl">
@@ -102,6 +105,7 @@ export function LoginContent() {
               )}
             </button>
           </form>
+          <GoogleAuthButton successMessage={dict.auth.welcomeBack} />
           <p className="text-center text-xs text-muted-foreground mt-4">
             {dict.auth.noAccount}{" "}
             <Link href="/auth/register" className="text-coral font-semibold">

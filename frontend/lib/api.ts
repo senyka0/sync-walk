@@ -134,6 +134,17 @@ class ApiClient {
     });
   }
 
+  async loginWithGoogle(idToken: string) {
+    return this.request<{
+      access_token: string;
+      refresh_token: string;
+      user: { id: string; name: string; email: string };
+    }>("/api/v1/auth/google", {
+      method: "POST",
+      body: JSON.stringify({ id_token: idToken }),
+    });
+  }
+
   async getMe() {
     return this.request<{ id: string; name: string; email: string }>(
       "/api/v1/auth/me",

@@ -22,6 +22,7 @@ interface AuthSlice {
   isAuthenticated: boolean;
   authToken: string | null;
   login: (email: string, password: string) => Promise<void>;
+  loginWithGoogle: (idToken: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   hydrateAuth: () => Promise<void>;
@@ -136,6 +137,20 @@ export const useAppStore = create<AppStore>()(
           } catch {}
         } catch (error) {
           throw new Error(getApiErrorMessage(error, "Invalid credentials"));
+        }
+      },
+
+      loginWithGoogle: async (idToken: string) => {
+        try {
+          const res = await api.loginWithGoogle(idToken);
+          api.setToken(res.access_token);
+          const user = mapUser(res.user as unknown as Record<string, unknown>);
+          set({ user, isAuthenticated: true, authToken: res.access_token });
+          try {
+            await get().syncPurchasedAccess();
+          } catch {}
+        } catch (error) {
+          throw new Error(getApiErrorMessage(error, "Google sign-in failed"));
         }
       },
 
@@ -351,7 +366,9 @@ export const useAppStore = create<AppStore>()(
 
       addParticipant: (participant: Participant) => {
         set((state) => {
-          const existing = state.participants.find((p) => p.id === participant.id);
+          const existing = state.participants.find(
+            (p) => p.id === participant.id,
+          );
           if (existing) {
             return {
               participants: state.participants.map((p) =>
@@ -534,6 +551,19 @@ export const useAppStore = create<AppStore>()(
     }),
     {
       name: "syncwalk-store",
+      version: 1,
+      migrate: (persistedState, version) => {
+        if (!persistedState || typeof persistedState !== "object") {
+          return persistedState as AppStore;
+        }
+        if (version < 1) {
+          return {
+            ...(persistedState as Record<string, unknown>),
+            language: "uk",
+          } as AppStore;
+        }
+        return persistedState as AppStore;
+      },
       partialize: (state) => ({
         isAuthenticated: state.isAuthenticated,
         user: state.user,

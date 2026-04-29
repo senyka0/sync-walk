@@ -37,6 +37,9 @@ const dictionary = {
       invalidCredentials: "Invalid email or password.",
       accountCreated: "Account created! Welcome to SyncWalk.",
       registrationFailed: "Registration failed. Email may already exist.",
+      orContinueWith: "or continue with",
+      googleLoading: "Loading Google sign-in...",
+      googleLoginFailed: "Google sign-in failed.",
     },
     profile: {
       myTours: "My Tours",
@@ -226,6 +229,9 @@ const dictionary = {
       accountCreated: "Акаунт створено! Ласкаво просимо до SyncWalk.",
       registrationFailed:
         "Не вдалося зареєструватися. Можливо, email вже існує.",
+      orContinueWith: "або продовжити через",
+      googleLoading: "Завантаження входу через Google...",
+      googleLoginFailed: "Не вдалося увійти через Google.",
     },
     profile: {
       myTours: "Мої тури",

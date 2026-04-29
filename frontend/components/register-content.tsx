@@ -8,6 +8,7 @@ import { useI18n } from "@/lib/i18n";
 import { getApiErrorMessage } from "@/lib/api";
 import { Headphones } from "lucide-react";
 import { toast } from "sonner";
+import { GoogleAuthButton } from "@/components/google-auth-button";
 
 export function RegisterContent() {
   const router = useRouter();
@@ -104,6 +105,7 @@ export function RegisterContent() {
               )}
             </button>
           </form>
+          <GoogleAuthButton successMessage={dict.auth.welcomeBack} />
           <p className="text-center text-xs text-muted-foreground mt-4">
             {dict.auth.haveAccount}{" "}
             <Link href="/auth/login" className="text-coral font-semibold">
