@@ -33,9 +33,19 @@ async def disconnect(sid):
 async def handle_join_room(sid, data):
     room_id = data.get("room_id")
     user_name = data.get("user_name", "Guest")
+    room_sids_before_join = [
+        psid
+        for psid, pdata in connected_users.items()
+        if pdata.get("room_id") == room_id
+    ]
 
     await sio.enter_room(sid, room_id)
     connected_users[sid] = {"room_id": room_id, "user_name": user_name}
+
+    state = await RoomStateManager.get_state(room_id)
+    if state and not room_sids_before_join:
+        await RoomStateManager.update_field(room_id, "host_id", sid)
+        state["host_id"] = sid
 
     await sio.emit(
         "participant_joined",
@@ -44,7 +54,17 @@ async def handle_join_room(sid, data):
         skip_sid=sid,
     )
 
-    state = await RoomStateManager.get_state(room_id)
+    participants = [
+        {
+            "sid": psid,
+            "name": pdata.get("user_name", "Guest"),
+            "role": "host" if state and state.get("host_id") == psid else "listener",
+        }
+        for psid, pdata in connected_users.items()
+        if pdata.get("room_id") == room_id
+    ]
+    await sio.emit("room_participants", {"participants": participants}, to=sid)
+
     if state:
         await sio.emit("sync_state", state, to=sid)
 
@@ -137,7 +157,11 @@ async def handle_host_busy(sid, data):
 
     await sio.emit(
         "ui_notify",
-        {"type": "host_busy", "reason": reason, "message": "Host is busy. Transfer control?"},
+        {
+            "type": "host_busy",
+            "reason": reason,
+            "message": "Host is busy. Transfer control?",
+        },
         room=room_id,
         skip_sid=sid,
     )
