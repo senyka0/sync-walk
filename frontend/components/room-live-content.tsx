@@ -22,7 +22,7 @@ import { toast } from "sonner";
 import { useSocket } from "@/hooks/use-socket";
 import { useAudio } from "@/hooks/use-audio";
 import { useScreenWakeLock } from "@/hooks/use-screen-wake-lock";
-import { API_URL } from "@/lib/api";
+import { buildApiAudioUrl, getAudioPathForLanguage } from "@/lib/audio";
 import { useI18n } from "@/lib/i18n";
 import { MapboxRouteMap } from "@/components/mapbox-route-map";
 import { Slider, SliderThumb, SliderTrack } from "react-aria-components";
@@ -212,13 +212,8 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
     language === "uk"
       ? (currentPoint?.descriptionUk ?? currentPoint?.description ?? "")
       : (currentPoint?.description ?? "");
-  const path =
-    language === "uk" && currentPoint?.audioUrlUk
-      ? currentPoint.audioUrlUk
-      : (currentPoint?.audioUrl ?? "");
-  const audioUrl = path
-    ? `${API_URL.replace(/\/$/, "")}${path.startsWith("/") ? path : `/${path}`}`
-    : null;
+  const path = getAudioPathForLanguage(currentPoint, language);
+  const audioUrl = buildApiAudioUrl(path);
 
   useAudio(audioUrl);
   useScreenWakeLock(isPlaying);

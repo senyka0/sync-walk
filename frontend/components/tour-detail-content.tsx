@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
-import { API_URL } from "@/lib/api";
+import { buildApiAudioUrl, getAudioPathForLanguage } from "@/lib/audio";
 import { ArrowLeft, Clock, MapPin, Navigation } from "lucide-react";
 import Link from "next/link";
 import { MapboxRouteMap } from "@/components/mapbox-route-map";
@@ -63,18 +63,13 @@ export function TourDetailContent() {
   const directionsUrl = startPoint
     ? `https://www.google.com/maps/dir/?api=1&destination=${startPoint.latitude},${startPoint.longitude}&travelmode=walking`
     : null;
-  const sourceAudioPath =
-    language === "uk" && startPoint?.audioUrlUk
-      ? startPoint.audioUrlUk
-      : (startPoint?.audioUrl ?? "");
+  const sourceAudioPath = getAudioPathForLanguage(startPoint, language);
   const demoAudioPath = sourceAudioPath
     ? /-\d+\.mp3$/i.test(sourceAudioPath)
       ? sourceAudioPath.replace(/-\d+\.mp3$/i, "-description.mp3")
       : sourceAudioPath.replace(/\.mp3$/i, "-description.mp3")
     : "";
-  const demoAudioUrl = demoAudioPath
-    ? `${API_URL.replace(/\/$/, "")}${demoAudioPath.startsWith("/") ? demoAudioPath : `/${demoAudioPath}`}`
-    : "";
+  const demoAudioUrl = buildApiAudioUrl(demoAudioPath) ?? "";
   const cityLabel =
     language === "uk"
       ? tour.city === "kyiv"

@@ -1,6 +1,18 @@
 import type { Tour, TourPoint, User, Room, Participant } from "@/store/types";
 
 export function mapTourPoint(raw: Record<string, unknown>): TourPoint {
+  const audioByLanguageRaw = (raw.audio_by_language ??
+    null) as Record<string, unknown> | null;
+  const enAudio =
+    (raw.audio_url_en as string | null | undefined) ??
+    (audioByLanguageRaw?.en as string | null | undefined) ??
+    (raw.audio_url as string | null | undefined) ??
+    null;
+  const ukAudio =
+    (raw.audio_url_uk as string | null | undefined) ??
+    (audioByLanguageRaw?.uk as string | null | undefined) ??
+    null;
+
   return {
     id: String(raw.id),
     orderIndex: raw.order_index as number,
@@ -10,8 +22,10 @@ export function mapTourPoint(raw: Record<string, unknown>): TourPoint {
     descriptionUk: (raw.description_uk as string | null | undefined) ?? null,
     latitude: raw.latitude as number,
     longitude: raw.longitude as number,
-    audioUrl: raw.audio_url as string,
-    audioUrlUk: (raw.audio_url_uk as string | null | undefined) ?? null,
+    audioByLanguage: {
+      en: enAudio,
+      uk: ukAudio ?? enAudio,
+    },
   };
 }
 

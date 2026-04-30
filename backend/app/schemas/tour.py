@@ -1,6 +1,6 @@
 import uuid
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class TourPointResponse(BaseModel):
@@ -14,6 +14,7 @@ class TourPointResponse(BaseModel):
     longitude: float
     audio_url: str
     audio_url_uk: str | None = None
+    audio_by_language: dict[str, str] = Field(default_factory=dict)
 
     model_config = {"from_attributes": True}
 

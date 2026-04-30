@@ -4,6 +4,10 @@ export type SyncStatus = "synced" | "behind" | "reconnecting";
 export type PaymentStatus = "idle" | "processing" | "success" | "failed";
 export type PurchasedAccess = "solo" | "group";
 export type Language = "en" | "uk";
+export type AudioByLanguage = {
+  en: string | null;
+  uk: string | null;
+};
 
 export interface TourPoint {
   id: string;
@@ -14,8 +18,7 @@ export interface TourPoint {
   descriptionUk?: string | null;
   latitude: number;
   longitude: number;
-  audioUrl: string;
-  audioUrlUk?: string | null;
+  audioByLanguage: AudioByLanguage;
   audioDurationMs?: number;
 }
 
