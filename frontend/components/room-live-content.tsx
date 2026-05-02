@@ -314,8 +314,8 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
     totalDurationMs > 0 ? (effectiveTimeMs / totalDurationMs) * 100 : 0;
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <div className="relative w-full h-52 bg-secondary shrink-0 overflow-hidden">
+    <div className="flex h-screen flex-col bg-background">
+      <div className="relative h-[50svh] w-full shrink-0 overflow-hidden bg-secondary">
         <MapboxRouteMap
           points={tour?.points ?? []}
           currentIndex={currentTrackIndex}
@@ -366,7 +366,7 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
           {dict.common.map}
         </div>
       </div>
-      <div className="flex-1 flex flex-col bg-background px-5">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto bg-background px-5">
         <div className="pt-5 pb-3">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 bg-coral/20 text-coral text-[10px] font-bold rounded-full uppercase tracking-wider">
