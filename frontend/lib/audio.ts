@@ -7,9 +7,9 @@ export function getAudioPathForLanguage(
 ): string {
   if (!point) return "";
   if (language === "uk") {
-    return point.audioByLanguage.uk ?? point.audioByLanguage.en ?? "";
+    return point.audioUrlUk ?? point.audioUrlEn ?? "";
   }
-  return point.audioByLanguage.en ?? point.audioByLanguage.uk ?? "";
+  return point.audioUrlEn ?? point.audioUrlUk ?? "";
 }
 
 export function buildApiAudioUrl(

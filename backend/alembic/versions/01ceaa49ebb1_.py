@@ -1,8 +1,8 @@
 """
 
-Revision ID: e34c63d9ad31
+Revision ID: 01ceaa49ebb1
 Revises: 
-Create Date: 2026-04-28 11:04:54.890823
+Create Date: 2026-05-02 18:12:40.875978
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision: str = 'e34c63d9ad31'
+revision: str = '01ceaa49ebb1'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -91,7 +91,7 @@ def upgrade() -> None:
     sa.Column('description_uk', sa.Text(), nullable=True),
     sa.Column('latitude', sa.Float(), nullable=False),
     sa.Column('longitude', sa.Float(), nullable=False),
-    sa.Column('audio_url', sa.String(length=500), nullable=False),
+    sa.Column('audio_url_en', sa.String(length=500), nullable=True),
     sa.Column('audio_url_uk', sa.String(length=500), nullable=True),
     sa.Column('id', sa.UUID(), nullable=False),
     sa.ForeignKeyConstraint(['tour_id'], ['tours.id'], ondelete='CASCADE'),

@@ -20,15 +20,11 @@ class TourPoint(Base, UUIDMixin):
     description_uk: Mapped[str | None] = mapped_column(Text, nullable=True)
     latitude: Mapped[float] = mapped_column(Float)
     longitude: Mapped[float] = mapped_column(Float)
-    audio_url: Mapped[str] = mapped_column(String(500), default="")
+    audio_url_en: Mapped[str | None] = mapped_column(
+        String(500), nullable=True, default=None
+    )
     audio_url_uk: Mapped[str | None] = mapped_column(
         String(500), nullable=True, default=None
     )
-
-    @property
-    def audio_by_language(self) -> dict[str, str]:
-        en_audio = self.audio_url or ""
-        uk_audio = self.audio_url_uk or en_audio
-        return {"en": en_audio, "uk": uk_audio}
 
     tour = relationship("Tour", back_populates="points")

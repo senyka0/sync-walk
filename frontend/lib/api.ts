@@ -193,13 +193,8 @@ class ApiClient {
         description_uk?: string | null;
         latitude: number;
         longitude: number;
-        audio_url: string;
         audio_url_en?: string | null;
         audio_url_uk?: string | null;
-        audio_by_language?: {
-          en?: string | null;
-          uk?: string | null;
-        } | null;
       }>;
     }>(`/api/v1/tours/${id}`);
   }
