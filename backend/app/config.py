@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     WAYFORPAY_MERCHANT_AUTH_TYPE: str = "SimpleSignature"
     WAYFORPAY_MERCHANT_TRANSACTION_SECURE_TYPE: str = "AUTO"
     WAYFORPAY_ORDER_TIMEOUT: int = 86400
+    WAYFORPAY_STATUS_CHECK_INTERVAL_SECONDS: int = 30
     WAYFORPAY_LANGUAGE: str = "UA"
 
     DOMAIN: str = "sync-walk.sbs"

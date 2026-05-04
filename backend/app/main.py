@@ -14,15 +14,23 @@ from app.sockets.server import sio
 from app.sockets import events  # noqa: F401
 from app.sockets.sync import start_sync_loop
 from app.api.v1.router import api_router
+from app.services.payment import (
+    start_pending_payment_status_monitors,
+    stop_payment_status_monitors,
+)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await redis_client.ping()
     start_sync_loop()
-    yield
-    await redis_client.aclose()
-    await engine.dispose()
+    await start_pending_payment_status_monitors()
+    try:
+        yield
+    finally:
+        await stop_payment_status_monitors()
+        await redis_client.aclose()
+        await engine.dispose()
 
 
 app = FastAPI(

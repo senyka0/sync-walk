@@ -18,6 +18,7 @@ from app.services.payment import (
     get_user_payment_by_order_reference,
     get_user_payments,
     handle_payment_callback,
+    start_payment_status_monitor,
 )
 
 router = APIRouter()
@@ -96,7 +97,10 @@ async def create(
     db: AsyncSession = Depends(get_db),
 ):
     try:
-        return await create_payment(db, user.id, data.tour_id, data.group_type)
+        response = await create_payment(db, user.id, data.tour_id, data.group_type)
+        await db.commit()
+        start_payment_status_monitor(response.order_reference)
+        return response
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 

@@ -30,6 +30,15 @@ def generate_signature(params: dict) -> str:
     ).hexdigest()
 
 
+def generate_check_status_signature(order_reference: str) -> str:
+    sign_string = ";".join([settings.WAYFORPAY_MERCHANT_ACCOUNT, order_reference])
+    return hmac.new(
+        settings.WAYFORPAY_MERCHANT_SECRET.encode(),
+        sign_string.encode(),
+        hashlib.md5,
+    ).hexdigest()
+
+
 def verify_callback_signature(data: dict) -> bool:
     merchant_account = str(data.get("merchantAccount", "")).strip()
     order_reference = str(data.get("orderReference", "")).strip()
