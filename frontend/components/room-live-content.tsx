@@ -24,6 +24,7 @@ import { useAudio } from "@/hooks/use-audio";
 import { useScreenWakeLock } from "@/hooks/use-screen-wake-lock";
 import { buildApiAudioUrl, getAudioPathForLanguage } from "@/lib/audio";
 import { useI18n } from "@/lib/i18n";
+import { BugReportDialog } from "@/components/bug-report-dialog";
 import { MapboxRouteMap } from "@/components/mapbox-route-map";
 import { Slider, SliderThumb, SliderTrack } from "react-aria-components";
 
@@ -204,6 +205,10 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
       ? currentTour
       : tourFromList;
   const currentPoint = tour?.points[currentTrackIndex];
+  const localizedTourTitle =
+    language === "uk"
+      ? (tour?.titleUk ?? tour?.title ?? "")
+      : (tour?.title ?? "");
   const localizedPointTitle =
     language === "uk"
       ? (currentPoint?.titleUk ?? currentPoint?.title ?? "")
@@ -525,6 +530,15 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
               </div>
             )}
 
+            <BugReportDialog
+              context={{
+                source: "player",
+                tourTitle: localizedTourTitle,
+                roomCode: code,
+              }}
+              triggerClassName="w-full bg-white text-black border border-border dark:bg-coral/10 dark:text-white dark:border-coral/30 rounded-xl py-3"
+            />
+
             <button
               onClick={handleEndTour}
               className="w-full flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral/25 dark:border-coral/40 border border-coral/40 rounded-xl py-3 text-sm font-semibold active-scale"
@@ -560,6 +574,15 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
               )}
               {isMuted ? dict.roomLive.unmute : dict.roomLive.mute}
             </button>
+
+            <BugReportDialog
+              context={{
+                source: "player",
+                tourTitle: localizedTourTitle,
+                roomCode: code,
+              }}
+              triggerClassName="w-full bg-white text-black border border-border dark:bg-coral/10 dark:text-white dark:border-coral/30 rounded-xl py-3"
+            />
 
             <button
               onClick={handleLeave}

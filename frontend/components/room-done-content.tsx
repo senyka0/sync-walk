@@ -4,17 +4,25 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
-import { Clock, MapPin, Home, Trophy } from "lucide-react";
+import { buildFeedbackMessage, getTelegramFeedbackUrl } from "@/lib/feedback";
+import { Home, ThumbsDown, ThumbsUp, Trophy } from "lucide-react";
 import { toast } from "sonner";
 
 export function RoomDoneContent() {
   const router = useRouter();
   const { currentRoom, tours, leaveRoom, language } = useAppStore();
   const dict = useI18n();
-  const [review, setReview] = useState("");
+  const [recommendation, setRecommendation] = useState<"yes" | "no" | null>(
+    null,
+  );
+  const [improvement, setImprovement] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const tour = tours.find((t) => t.id === currentRoom?.tourId) ?? tours[0];
+  const tourTitle =
+    language === "uk"
+      ? (tour?.titleUk ?? tour?.title ?? "")
+      : (tour?.title ?? "");
   const cityLabel =
     language === "uk"
       ? tour?.city === "kyiv"
@@ -24,8 +32,34 @@ export function RoomDoneContent() {
         ? "Kyiv"
         : "Kharkiv";
 
-  const handleSubmit = () => {
-    // TODO: Replace with POST /api/reviews
+  const canSubmit =
+    recommendation === "yes" ||
+    (recommendation === "no" && improvement.trim().length > 0);
+
+  const handleSubmit = async () => {
+    if (!recommendation) {
+      toast.error(dict.roomDone.chooseAnswer);
+      return;
+    }
+
+    const feedback = buildFeedbackMessage(
+      recommendation === "yes"
+        ? dict.roomDone.recommendYesMessage
+        : improvement,
+      {
+        source: "tour_complete",
+        tourTitle,
+        roomCode: currentRoom?.accessCode,
+        vote: recommendation,
+      },
+    );
+
+    await navigator.clipboard?.writeText(feedback).catch(() => undefined);
+    window.open(
+      getTelegramFeedbackUrl(feedback),
+      "_blank",
+      "noopener,noreferrer",
+    );
     setSubmitted(true);
     toast.success(dict.roomDone.reviewSubmitted);
     setTimeout(() => {
@@ -55,19 +89,57 @@ export function RoomDoneContent() {
       </div>
       <div className="bg-card rounded-2xl p-5 border border-border mb-5">
         <h2 className="text-base font-bold text-foreground mb-3">
-          {dict.roomDone.howWasIt}
+          {dict.roomDone.recommendQuestion}
         </h2>
-        <textarea
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-          placeholder={dict.roomDone.reviewPlaceholder}
-          rows={3}
-          className="w-full bg-white border border-border rounded-xl px-4 py-3 text-sm text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-coral/40 resize-none"
-        />
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => setRecommendation("yes")}
+            className={`flex items-center justify-center gap-2 rounded-xl border py-3 text-sm font-bold active-scale ${
+              recommendation === "yes"
+                ? "border-coral bg-coral text-white"
+                : "border-border bg-background text-foreground"
+            }`}
+          >
+            <ThumbsUp className="w-4 h-4" />
+            {dict.roomDone.recommendYes}
+          </button>
+          <button
+            type="button"
+            onClick={() => setRecommendation("no")}
+            className={`flex items-center justify-center gap-2 rounded-xl border py-3 text-sm font-bold active-scale ${
+              recommendation === "no"
+                ? "border-coral bg-coral text-white"
+                : "border-border bg-background text-foreground"
+            }`}
+          >
+            <ThumbsDown className="w-4 h-4" />
+            {dict.roomDone.recommendNo}
+          </button>
+        </div>
+        {recommendation === "yes" && (
+          <p className="mt-4 rounded-xl bg-coral/10 px-4 py-3 text-sm text-coral">
+            {dict.roomDone.recommendationThanks}
+          </p>
+        )}
+        {recommendation === "no" && (
+          <div className="mt-4">
+            <label className="mb-2 block text-sm font-bold text-foreground">
+              {dict.roomDone.improvementQuestion}
+            </label>
+            <textarea
+              value={improvement}
+              onChange={(e) => setImprovement(e.target.value)}
+              placeholder={dict.roomDone.improvementPlaceholder}
+              rows={3}
+              className="w-full bg-white border border-border rounded-xl px-4 py-3 text-sm text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-coral/40 resize-none"
+            />
+          </div>
+        )}
       </div>
       <button
         onClick={handleSubmit}
-        disabled={submitted}
+        disabled={submitted || !canSubmit}
         className="w-full bg-coral text-white rounded-2xl py-4 font-bold text-base active-scale shadow-lg disabled:opacity-70 flex items-center justify-center gap-2 mb-3"
       >
         <Home className="w-5 h-5" />
