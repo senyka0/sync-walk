@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
+import { BetaBanner } from "@/components/beta-banner";
 import { PWAInstallBanner } from "@/components/pwa-install-banner";
 import "./globals.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
     <html lang="uk" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
+        <BetaBanner />
         <PWAInstallBanner />
         <Toaster
           position="top-center"
