@@ -14,16 +14,16 @@ class Settings(BaseSettings):
 
     WAYFORPAY_MERCHANT_ACCOUNT: str = ""
     WAYFORPAY_MERCHANT_SECRET: str = ""
-    WAYFORPAY_MERCHANT_DOMAIN: str = "sync-walk.sbs"
+    WAYFORPAY_MERCHANT_DOMAIN: str = "syncwalk.app"
     WAYFORPAY_MERCHANT_AUTH_TYPE: str = "SimpleSignature"
     WAYFORPAY_MERCHANT_TRANSACTION_SECURE_TYPE: str = "AUTO"
     WAYFORPAY_ORDER_TIMEOUT: int = 86400
     WAYFORPAY_STATUS_CHECK_INTERVAL_SECONDS: int = 30
     WAYFORPAY_LANGUAGE: str = "UA"
 
-    DOMAIN: str = "sync-walk.sbs"
-    FRONTEND_PUBLIC_URL: str = "https://sync-walk.sbs"
-    BACKEND_PUBLIC_URL: str = "https://sync-walk.sbs"
+    DOMAIN: str = "syncwalk.app"
+    FRONTEND_PUBLIC_URL: str = "https://syncwalk.app"
+    BACKEND_PUBLIC_URL: str = "https://syncwalk.app"
 
     AUDIO_BASE_URL: str = "/audio"
     AUDIO_DIR: str | None = None

@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-DOMAIN=${1:-"sync-walk.sbs"}
-EMAIL=${2:-"admin@sync-walk.sbs"}
+DOMAIN=${1:-"syncwalk.app"}
+EMAIL=${2:-"admin@syncwalk.app"}
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 cd "$ROOT_DIR"
