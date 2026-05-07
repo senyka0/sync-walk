@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
 import { buildApiAudioUrl, getAudioPathForLanguage } from "@/lib/audio";
-import { ArrowLeft, Clock, MapPin, Navigation } from "lucide-react";
+import { ArrowLeft, Clock, MapPin, Navigation, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { MapboxRouteMap } from "@/components/mapbox-route-map";
 
@@ -212,6 +212,15 @@ export function TourDetailContent() {
                       ? (point.descriptionUk ?? point.description)
                       : point.description}
                   </p>
+                  {index === 0 && !access ? (
+                    <Link
+                      href={`/tours/${tour.id}/demo`}
+                      className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-coral px-3 py-1.5 text-xs font-semibold text-white active-scale"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>{dict.tour.tryDemo}</span>
+                    </Link>
+                  ) : null}
                 </div>
               </div>
             ))}

@@ -12,3 +12,4 @@ build/
 backups/
 audio/**/*.mp3
 !audio/.gitkeep
+*.tsbuildinfo

@@ -178,6 +178,36 @@ const dictionary = {
       shareWithFriends: "Share the tour with friends",
       soloAccess: "Solo access",
       groupTour: "Group tour",
+      tryDemo: "Try demo",
+      tryDemoHint: "Listen to the first stop for free",
+    },
+    tourDemo: {
+      headerBadge: "Free demo",
+      title: "Free demo",
+      subtitle: "Listen to the first stop free of charge to feel how SyncWalk works.",
+      stopLabel: "Demo stop",
+      buyTour: "Buy full tour",
+      backToTour: "Back to tour",
+      geoRequiredTitle: "Location access required",
+      geoRequiredHint:
+        "SyncWalk plays audio when you reach a tour point. Allow location access to start the demo.",
+      geoBlockedTitle: "Location is blocked",
+      geoBlockedHint:
+        "Open browser site settings, allow location for this app, then reload the page.",
+      geoUnsupportedTitle: "Location not supported",
+      geoUnsupportedHint:
+        "Your browser does not support geolocation. Open the app in Chrome or Safari on a phone.",
+      enableLocation: "Allow location",
+      retryLocation: "Try again",
+      farFromPointTitle: "Get closer to the start point",
+      farFromPointHint:
+        "You need to be within {radius} of {point} to play the demo audio.",
+      distanceAway: "{distance} away",
+      youAreHere: "You are here",
+      readyToPlay: "You are at the point — press play to listen.",
+      demoComplete: "Demo finished",
+      demoCompleteHint: "Like it? Buy the full tour to unlock all stops.",
+      directions: "Get directions",
     },
     pwa: {
       dismiss: "Dismiss install prompt",
@@ -397,6 +427,37 @@ const dictionary = {
       shareWithFriends: "Поділіться туром з друзями",
       soloAccess: "Соло доступ",
       groupTour: "Груповий тур",
+      tryDemo: "Спробувати демо",
+      tryDemoHint: "Послухайте першу зупинку безкоштовно",
+    },
+    tourDemo: {
+      headerBadge: "Безкоштовне демо",
+      title: "Безкоштовне демо",
+      subtitle:
+        "Послухайте першу зупинку безкоштовно, щоб відчути, як працює SyncWalk.",
+      stopLabel: "Демо-зупинка",
+      buyTour: "Купити повний тур",
+      backToTour: "Назад до туру",
+      geoRequiredTitle: "Потрібен доступ до геолокації",
+      geoRequiredHint:
+        "SyncWalk запускає аудіо, коли ви підходите до точки туру. Дозвольте доступ до геолокації, щоб запустити демо.",
+      geoBlockedTitle: "Геолокацію заблоковано",
+      geoBlockedHint:
+        "Відкрийте налаштування сайту в браузері, дозвольте геолокацію та оновіть сторінку.",
+      geoUnsupportedTitle: "Геолокація не підтримується",
+      geoUnsupportedHint:
+        "Ваш браузер не підтримує геолокацію. Відкрийте застосунок у Chrome або Safari на телефоні.",
+      enableLocation: "Дозволити геолокацію",
+      retryLocation: "Спробувати ще",
+      farFromPointTitle: "Підійдіть ближче до точки старту",
+      farFromPointHint:
+        "Щоб запустити демо-аудіо, вам потрібно бути в межах {radius} від {point}.",
+      distanceAway: "до точки {distance}",
+      youAreHere: "Ви тут",
+      readyToPlay: "Ви на місці — натисніть Play, щоб послухати.",
+      demoComplete: "Демо завершено",
+      demoCompleteHint: "Сподобалось? Придбайте повний тур, щоб відкрити всі зупинки.",
+      directions: "Прокласти маршрут",
     },
     pwa: {
       dismiss: "Закрити підказку встановлення",
