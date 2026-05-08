@@ -28,8 +28,19 @@ class Settings(BaseSettings):
     AUDIO_BASE_URL: str = "/audio"
     AUDIO_DIR: str | None = None
 
+    TELEGRAM_BOT_TOKEN: str = ""
+    TELEGRAM_FEEDBACK_CHAT_IDS: str = ""
+
     class Config:
         env_file = Path(__file__).resolve().parents[2] / ".env"
+
+    @property
+    def telegram_feedback_chat_ids(self) -> list[str]:
+        return [
+            chat_id.strip()
+            for chat_id in self.TELEGRAM_FEEDBACK_CHAT_IDS.split(",")
+            if chat_id.strip()
+        ]
 
 
 settings = Settings()
