@@ -15,7 +15,9 @@ import {
 } from "lucide-react";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
+import { api } from "@/lib/api";
 import { buildApiAudioUrl, getAudioPathForLanguage } from "@/lib/audio";
+import { getFeedbackClientContext } from "@/lib/feedback";
 import { MapboxRouteMap } from "@/components/mapbox-route-map";
 import { Slider, SliderThumb, SliderTrack } from "react-aria-components";
 
@@ -78,6 +80,8 @@ export function TourDemoContent() {
   const [scrubMs, setScrubMs] = useState<number | null>(null);
   const [isAudioReady, setIsAudioReady] = useState(false);
   const [demoFinished, setDemoFinished] = useState(false);
+  const [exitSurveyOpen, setExitSurveyOpen] = useState(false);
+  const [exitSurveySubmitting, setExitSurveySubmitting] = useState(false);
 
   const [geoState, setGeoState] = useState<GeoState>("loading");
   const [userLocation, setUserLocation] = useState<{
@@ -154,10 +158,7 @@ export function TourDemoContent() {
         permissions?: {
           query: (descriptor: { name: string }) => Promise<{
             state: PermissionState;
-            addEventListener?: (
-              type: "change",
-              listener: () => void,
-            ) => void;
+            addEventListener?: (type: "change", listener: () => void) => void;
             onchange?: (() => void) | null;
           }>;
         };
@@ -300,6 +301,50 @@ export function TourDemoContent() {
 
   const tourId = (params.id as string) ?? "";
   const buyHref = `/tours/${tourId}`;
+  const exitSurveyOptions = [
+    {
+      reason: "too_expensive",
+      signal: "review_price",
+      label: dict.tourDemo.exitReasonTooExpensive,
+    },
+    {
+      reason: "technical_issues",
+      signal: "bugs",
+      label: dict.tourDemo.exitReasonTechnicalIssues,
+    },
+    {
+      reason: "uninteresting_content",
+      signal: "change_script",
+      label: dict.tourDemo.exitReasonUninterestingContent,
+    },
+    {
+      reason: "walking_solo",
+      signal: "not_target_audience",
+      label: dict.tourDemo.exitReasonWalkingSolo,
+    },
+  ];
+
+  const handleBackToTour = () => {
+    audioRef.current?.pause();
+    setIsPlaying(false);
+    setExitSurveyOpen(true);
+  };
+
+  const handleExitSurveySelect = async (reason: string, signal: string) => {
+    if (exitSurveySubmitting) return;
+    setExitSurveySubmitting(true);
+    await api
+      .submitFeedback({
+        source: "demo_exit",
+        choice: reason,
+        signal,
+        tourId,
+        tourTitle: localizedTitle,
+        client: getFeedbackClientContext(),
+      })
+      .catch(() => undefined);
+    router.push(buyHref);
+  };
 
   const effectiveTimeMs = scrubMs ?? currentTimeMs;
   const progressPercent =
@@ -556,7 +601,7 @@ export function TourDemoContent() {
           </Link>
           <button
             type="button"
-            onClick={() => router.push(buyHref)}
+            onClick={handleBackToTour}
             className="w-full inline-flex items-center justify-center gap-2 rounded-2xl border border-border bg-card text-foreground px-4 py-3 active-scale"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -566,6 +611,38 @@ export function TourDemoContent() {
           </button>
         </div>
       </div>
+      {exitSurveyOpen ? (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/55 px-4 pb-4 sm:items-center sm:pb-0">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="demo-exit-survey-title"
+            className="w-full max-w-md rounded-3xl border border-border bg-card p-5 shadow-2xl"
+          >
+            <h2
+              id="demo-exit-survey-title"
+              className="text-lg font-black text-foreground"
+            >
+              {dict.tourDemo.exitSurveyQuestion}
+            </h2>
+            <div className="mt-4 grid gap-2">
+              {exitSurveyOptions.map((option) => (
+                <button
+                  key={option.reason}
+                  type="button"
+                  disabled={exitSurveySubmitting}
+                  onClick={() =>
+                    handleExitSurveySelect(option.reason, option.signal)
+                  }
+                  className="w-full rounded-2xl border border-border bg-background px-4 py-3 text-left text-sm font-semibold text-foreground active-scale disabled:opacity-70"
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

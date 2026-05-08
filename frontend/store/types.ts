@@ -54,3 +54,35 @@ export interface User {
   name: string;
   email: string;
 }
+
+export type FeedbackSource =
+  | "beta_banner"
+  | "player"
+  | "tour_complete"
+  | "demo_exit"
+  | "bug_report";
+
+export interface FeedbackClientContext {
+  visitorId?: string | null;
+  url?: string | null;
+  userAgent?: string | null;
+  browserBrands?: string | null;
+  platform?: string | null;
+  mobile?: boolean | null;
+  language?: string | null;
+  viewport?: string | null;
+  screen?: string | null;
+  timeZone?: string | null;
+}
+
+export interface FeedbackPayload {
+  source: FeedbackSource;
+  message?: string | null;
+  choice?: string | null;
+  signal?: string | null;
+  tourId?: string | null;
+  tourTitle?: string | null;
+  roomCode?: string | null;
+  vote?: "yes" | "no" | null;
+  client?: FeedbackClientContext | null;
+}

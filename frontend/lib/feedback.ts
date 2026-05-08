@@ -1,11 +1,6 @@
-type FeedbackSource = "beta_banner" | "player" | "tour_complete";
+import type { FeedbackClientContext } from "@/store/types";
 
-type FeedbackContext = {
-  source: FeedbackSource;
-  tourTitle?: string;
-  roomCode?: string;
-  vote?: "yes" | "no";
-};
+const visitorIdKey = "syncwalk-visitor-id";
 
 type NavigatorWithUserAgentData = Navigator & {
   userAgentData?: {
@@ -15,18 +10,19 @@ type NavigatorWithUserAgentData = Navigator & {
   };
 };
 
-const supportTelegramUrl =
-  process.env.NEXT_PUBLIC_SUPPORT_TELEGRAM_URL ||
-  "https://t.me/SyncWalkSupportBot";
+export function getFeedbackClientContext(): FeedbackClientContext {
+  if (typeof window === "undefined") return {};
 
-const sourceLabels: Record<FeedbackSource, string> = {
-  beta_banner: "Beta banner",
-  player: "Player",
-  tour_complete: "Tour complete",
-};
-
-export function getTechnicalDetails(): string[] {
-  if (typeof window === "undefined") return [];
+  let visitorId: string | null = null;
+  try {
+    visitorId = window.localStorage.getItem(visitorIdKey);
+    if (!visitorId) {
+      visitorId =
+        window.crypto?.randomUUID?.() ??
+        `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      window.localStorage.setItem(visitorIdKey, visitorId);
+    }
+  } catch {}
 
   const nav = window.navigator as NavigatorWithUserAgentData;
   const brands =
@@ -34,48 +30,16 @@ export function getTechnicalDetails(): string[] {
       ?.map((brand) => `${brand.brand} ${brand.version}`)
       .join(", ") || "unknown";
 
-  return [
-    `URL: ${window.location.href}`,
-    `User agent: ${nav.userAgent}`,
-    `Browser brands: ${brands}`,
-    `Platform: ${nav.userAgentData?.platform || nav.platform || "unknown"}`,
-    `Mobile: ${String(nav.userAgentData?.mobile ?? "unknown")}`,
-    `Language: ${nav.language}`,
-    `Viewport: ${window.innerWidth}x${window.innerHeight}`,
-    `Screen: ${window.screen.width}x${window.screen.height}`,
-    `Time zone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
-  ];
-}
-
-export function buildFeedbackMessage(
-  message: string,
-  context: FeedbackContext,
-): string {
-  const lines = [
-    "SyncWalk beta feedback",
-    `Source: ${sourceLabels[context.source]}`,
-  ];
-
-  if (context.tourTitle) lines.push(`Tour: ${context.tourTitle}`);
-  if (context.roomCode) lines.push(`Room: ${context.roomCode}`);
-  if (context.vote) lines.push(`Would recommend: ${context.vote}`);
-
-  lines.push("", "Message:", message.trim() || "(empty)", "", "Tech details:");
-  lines.push(...getTechnicalDetails());
-
-  return lines.join("\n");
-}
-
-export function getTelegramFeedbackUrl(message: string): string {
-  const url = new URL("https://t.me/share/url");
-  const pageUrl = typeof window === "undefined" ? "" : window.location.href;
-
-  url.searchParams.set("url", pageUrl);
-  url.searchParams.set("text", message);
-
-  return url.toString();
-}
-
-export function getSupportTelegramUrl(): string {
-  return supportTelegramUrl;
+  return {
+    visitorId,
+    url: window.location.href,
+    userAgent: nav.userAgent,
+    browserBrands: brands,
+    platform: nav.userAgentData?.platform || nav.platform || "unknown",
+    mobile: nav.userAgentData?.mobile ?? null,
+    language: nav.language,
+    viewport: `${window.innerWidth}x${window.innerHeight}`,
+    screen: `${window.screen.width}x${window.screen.height}`,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  };
 }

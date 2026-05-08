@@ -12,18 +12,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  buildFeedbackMessage,
-  getSupportTelegramUrl,
-  getTelegramFeedbackUrl,
-} from "@/lib/feedback";
+import { api, getApiErrorMessage } from "@/lib/api";
+import { getFeedbackClientContext } from "@/lib/feedback";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import type { FeedbackSource } from "@/store/types";
 
 type BugReportDialogProps = {
   children?: React.ReactNode;
   context: {
-    source: "beta_banner" | "player" | "tour_complete";
+    source: FeedbackSource;
     tourTitle?: string;
     roomCode?: string;
     vote?: "yes" | "no";
@@ -39,19 +37,27 @@ export function BugReportDialog({
   const dict = useI18n();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    const feedback = buildFeedbackMessage(message, context);
-
-    await navigator.clipboard?.writeText(feedback).catch(() => undefined);
-    window.open(
-      getTelegramFeedbackUrl(feedback),
-      "_blank",
-      "noopener,noreferrer",
-    );
-    setOpen(false);
-    setMessage("");
-    toast.success(dict.feedback.reportPrepared);
+    setSubmitting(true);
+    try {
+      await api.submitFeedback({
+        source: context.source,
+        message,
+        tourTitle: context.tourTitle,
+        roomCode: context.roomCode,
+        vote: context.vote,
+        client: getFeedbackClientContext(),
+      });
+      setOpen(false);
+      setMessage("");
+      toast.success(dict.feedback.reportPrepared);
+    } catch (error) {
+      toast.error(getApiErrorMessage(error, dict.feedback.reportFailed));
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -92,19 +98,12 @@ export function BugReportDialog({
         <button
           type="button"
           onClick={handleSubmit}
-          className="w-full bg-coral text-white rounded-xl py-3 text-sm font-bold active-scale flex items-center justify-center gap-2"
+          disabled={submitting}
+          className="w-full bg-coral text-white rounded-xl py-3 text-sm font-bold active-scale flex items-center justify-center gap-2 disabled:opacity-70"
         >
           <Send className="w-4 h-4" />
-          {dict.feedback.openTelegram}
+          {submitting ? dict.feedback.sending : dict.feedback.openTelegram}
         </button>
-        <a
-          href={getSupportTelegramUrl()}
-          target="_blank"
-          rel="noreferrer"
-          className="text-center text-xs font-medium text-muted-foreground underline underline-offset-4"
-        >
-          {dict.feedback.openSupportChat}
-        </a>
       </DialogContent>
     </Dialog>
   );

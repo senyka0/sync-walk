@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
 import { BetaBanner } from "@/components/beta-banner";
 import { PWAInstallBanner } from "@/components/pwa-install-banner";
@@ -61,7 +60,6 @@ export default function RootLayout({
             },
           }}
         />
-        <Analytics />
       </body>
     </html>
   );

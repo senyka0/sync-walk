@@ -1,3 +1,5 @@
+import type { FeedbackPayload } from "@/store/types";
+
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -293,6 +295,38 @@ class ApiClient {
   async finishRoom(roomId: string) {
     return this.request(`/api/v1/rooms/${roomId}/finish`, {
       method: "POST",
+    });
+  }
+
+  async submitFeedback(payload: FeedbackPayload) {
+    const client = payload.client
+      ? {
+          visitor_id: payload.client.visitorId,
+          url: payload.client.url,
+          user_agent: payload.client.userAgent,
+          browser_brands: payload.client.browserBrands,
+          platform: payload.client.platform,
+          mobile: payload.client.mobile,
+          language: payload.client.language,
+          viewport: payload.client.viewport,
+          screen: payload.client.screen,
+          time_zone: payload.client.timeZone,
+        }
+      : null;
+
+    return this.request<{ ok: boolean }>("/api/v1/feedback", {
+      method: "POST",
+      body: JSON.stringify({
+        source: payload.source,
+        message: payload.message,
+        choice: payload.choice,
+        signal: payload.signal,
+        tour_id: payload.tourId,
+        tour_title: payload.tourTitle,
+        room_code: payload.roomCode,
+        vote: payload.vote,
+        client,
+      }),
     });
   }
 }

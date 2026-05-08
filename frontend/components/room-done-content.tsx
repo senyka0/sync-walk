@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
-import { buildFeedbackMessage, getTelegramFeedbackUrl } from "@/lib/feedback";
+import { api, getApiErrorMessage } from "@/lib/api";
+import { getFeedbackClientContext } from "@/lib/feedback";
 import { Home, ThumbsDown, ThumbsUp, Trophy } from "lucide-react";
 import { toast } from "sonner";
 
@@ -42,30 +43,29 @@ export function RoomDoneContent() {
       return;
     }
 
-    const feedback = buildFeedbackMessage(
-      recommendation === "yes"
-        ? dict.roomDone.recommendYesMessage
-        : improvement,
-      {
+    setSubmitted(true);
+    try {
+      await api.submitFeedback({
         source: "tour_complete",
+        message:
+          recommendation === "yes"
+            ? dict.roomDone.recommendYesMessage
+            : improvement,
+        tourId: currentRoom?.tourId,
         tourTitle,
         roomCode: currentRoom?.accessCode,
         vote: recommendation,
-      },
-    );
-
-    await navigator.clipboard?.writeText(feedback).catch(() => undefined);
-    window.open(
-      getTelegramFeedbackUrl(feedback),
-      "_blank",
-      "noopener,noreferrer",
-    );
-    setSubmitted(true);
-    toast.success(dict.roomDone.reviewSubmitted);
-    setTimeout(() => {
-      leaveRoom();
-      router.push("/");
-    }, 1500);
+        client: getFeedbackClientContext(),
+      });
+      toast.success(dict.roomDone.reviewSubmitted);
+      setTimeout(() => {
+        leaveRoom();
+        router.push("/");
+      }, 1500);
+    } catch (error) {
+      setSubmitted(false);
+      toast.error(getApiErrorMessage(error, dict.feedback.reportFailed));
+    }
   };
 
   return (

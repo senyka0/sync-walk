@@ -149,11 +149,12 @@ const dictionary = {
         "Describe what happened. We will attach browser and device details automatically.",
       reportPlaceholder: "What went wrong?",
       techDataHint:
-        "The report includes URL, phone/browser details, viewport, language, and time zone.",
-      openTelegram: "Open Telegram",
+        "The report will include URL, phone/browser details, viewport, language, and time zone.",
+      openTelegram: "Send report",
       openSupportChat: "Open support chat",
-      reportPrepared:
-        "Report prepared with technical details. Paste it into Telegram if it is not inserted automatically.",
+      sending: "Sending...",
+      reportPrepared: "Report sent. Thank you!",
+      reportFailed: "Could not send report. Please try again.",
     },
     myTours: {
       title: "My Tours",
@@ -184,10 +185,11 @@ const dictionary = {
     tourDemo: {
       headerBadge: "Free demo",
       title: "Free demo",
-      subtitle: "Listen to the first stop free of charge to feel how SyncWalk works.",
+      subtitle:
+        "Listen to the first stop free of charge to feel how SyncWalk works.",
       stopLabel: "Demo stop",
       buyTour: "Buy full tour",
-      backToTour: "Back to tour",
+      backToTour: "Exit",
       geoRequiredTitle: "Location access required",
       geoRequiredHint:
         "SyncWalk plays audio when you reach a tour point. Allow location access to start the demo.",
@@ -208,6 +210,11 @@ const dictionary = {
       demoComplete: "Demo finished",
       demoCompleteHint: "Like it? Buy the full tour to unlock all stops.",
       directions: "Get directions",
+      exitSurveyQuestion: "Why did you not continue?",
+      exitReasonTooExpensive: "Too expensive",
+      exitReasonTechnicalIssues: "Technical problems",
+      exitReasonUninterestingContent: "Uninteresting content",
+      exitReasonWalkingSolo: "Just walking by myself",
     },
     pwa: {
       dismiss: "Dismiss install prompt",
@@ -399,10 +406,11 @@ const dictionary = {
       reportPlaceholder: "Що пішло не так?",
       techDataHint:
         "До звіту додамо URL, дані телефону/браузера, розмір екрана, мову та часовий пояс.",
-      openTelegram: "Відкрити Telegram",
+      openTelegram: "Надіслати звіт",
       openSupportChat: "Відкрити чат підтримки",
-      reportPrepared:
-        "Звіт з технічними даними підготовлено. Якщо Telegram не вставить текст автоматично, вставте його з буфера.",
+      sending: "Надсилання...",
+      reportPrepared: "Звіт надіслано. Дякуємо!",
+      reportFailed: "Не вдалося надіслати звіт. Спробуйте ще раз.",
     },
     myTours: {
       title: "Мої тури",
@@ -437,7 +445,7 @@ const dictionary = {
         "Послухайте першу зупинку безкоштовно, щоб відчути, як працює SyncWalk.",
       stopLabel: "Демо-зупинка",
       buyTour: "Купити повний тур",
-      backToTour: "Назад до туру",
+      backToTour: "Вийти",
       geoRequiredTitle: "Потрібен доступ до геолокації",
       geoRequiredHint:
         "SyncWalk запускає аудіо, коли ви підходите до точки туру. Дозвольте доступ до геолокації, щоб запустити демо.",
@@ -456,8 +464,14 @@ const dictionary = {
       youAreHere: "Ви тут",
       readyToPlay: "Ви на місці — натисніть Play, щоб послухати.",
       demoComplete: "Демо завершено",
-      demoCompleteHint: "Сподобалось? Придбайте повний тур, щоб відкрити всі зупинки.",
+      demoCompleteHint:
+        "Сподобалось? Придбайте повний тур, щоб відкрити всі зупинки.",
       directions: "Прокласти маршрут",
+      exitSurveyQuestion: "Чому ви не продовжили?",
+      exitReasonTooExpensive: "Занадто дорого",
+      exitReasonTechnicalIssues: "Технічні проблеми",
+      exitReasonUninterestingContent: "Нецікавий контент",
+      exitReasonWalkingSolo: "Просто гуляю сам",
     },
     pwa: {
       dismiss: "Закрити підказку встановлення",
