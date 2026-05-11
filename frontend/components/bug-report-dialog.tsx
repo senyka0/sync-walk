@@ -99,7 +99,7 @@ export function BugReportDialog({
           type="button"
           onClick={handleSubmit}
           disabled={submitting}
-          className="w-full bg-coral text-white rounded-xl py-3 text-sm font-bold active-scale flex items-center justify-center gap-2 disabled:opacity-70"
+          className="w-full bg-primary text-primary-foreground rounded-xl py-3 text-sm font-bold active-scale flex items-center justify-center gap-2 disabled:opacity-70"
         >
           <Send className="w-4 h-4" />
           {submitting ? dict.feedback.sending : dict.feedback.openTelegram}

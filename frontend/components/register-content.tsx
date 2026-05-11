@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
 import { getApiErrorMessage } from "@/lib/api";
-import { Headphones } from "lucide-react";
+import { Headphones, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { GoogleAuthButton } from "@/components/google-auth-button";
 
@@ -39,9 +39,18 @@ export function RegisterContent() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background px-5 page-enter">
+      <div className="pt-4 pb-3">
+        <button
+          onClick={() => router.back()}
+          className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
+          aria-label={dict.common.back}
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </button>
+      </div>
       <div className="flex-1 flex flex-col items-center justify-center gap-8">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-16 h-16 bg-coral rounded-2xl flex items-center justify-center shadow-xl">
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl bg-[linear-gradient(180deg,#005BBB_50%,#FFD500_50%)]">
             <Headphones className="w-8 h-8 text-white" strokeWidth={1.5} />
           </div>
           <div className="text-center">
@@ -96,7 +105,7 @@ export function RegisterContent() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-coral text-white rounded-xl py-3.5 font-bold text-sm mt-2 active-scale disabled:opacity-70 flex items-center justify-center"
+              className="w-full bg-primary text-primary-foreground rounded-xl py-3.5 font-bold text-sm mt-2 active-scale disabled:opacity-70 flex items-center justify-center"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

@@ -78,6 +78,9 @@ export function TourDetailContent() {
       : tour.city === "kyiv"
         ? "Kyiv"
         : "Kharkiv";
+  const blueCtaClass = "bg-[#005BBB] text-white shadow-lg active-scale";
+  const yellowCtaClass =
+    "bg-[#FFD500] text-[#0B1320] shadow-md border border-[#E6C000] active-scale";
 
   const toggleDemoAudio = async () => {
     const audio = demoAudioRef.current;
@@ -107,14 +110,14 @@ export function TourDetailContent() {
 
         <button
           onClick={() => router.back()}
-          className="absolute top-4 left-4 w-10 h-10 rounded-full glass flex items-center justify-center active-scale"
+          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >
-          <ArrowLeft className="w-5 h-5 text-white" />
+          <ArrowLeft className="w-5 h-5" />
         </button>
         <div className="absolute bottom-0 left-0 right-0 px-5 pb-5">
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-2.5 py-1 rounded-full bg-coral text-white text-[10px] font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground text-[10px] font-bold uppercase tracking-wider">
               {cityLabel}
             </span>
           </div>
@@ -138,10 +141,30 @@ export function TourDetailContent() {
             </span>
           </div>
         </div>
-        <div className="flex items-start gap-2">
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {localizedDescription}
-          </p>
+        <div className="text-sm text-muted-foreground">
+          <div className="flex items-start gap-2 leading-relaxed">
+            <p className="flex-1 leading-relaxed">
+              {demoAudioUrl ? (
+                <button
+                  type="button"
+                  onClick={toggleDemoAudio}
+                  aria-label={
+                    isDemoPlaying ? dict.roomLive.stop : dict.roomLive.play
+                  }
+                  className="mr-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-coral align-middle text-[10px] font-semibold text-white active-scale"
+                >
+                  <span
+                    className={`leading-none ${
+                      isDemoPlaying ? "" : "translate-x-px"
+                    }`}
+                  >
+                    {isDemoPlaying ? "■" : "▶"}
+                  </span>
+                </button>
+              ) : null}
+              {localizedDescription}
+            </p>
+          </div>
           {demoAudioUrl ? (
             <audio
               ref={demoAudioRef}
@@ -176,19 +199,6 @@ export function TourDetailContent() {
             <h2 className="text-base font-bold text-foreground">
               {dict.tour.tourStops}
             </h2>
-            {demoAudioUrl ? (
-              <button
-                type="button"
-                onClick={toggleDemoAudio}
-                aria-label={
-                  isDemoPlaying ? dict.roomLive.stop : dict.roomLive.play
-                }
-                className="shrink-0 inline-flex items-center gap-2 rounded-full bg-coral px-3 py-1.5 text-xs font-semibold text-white active-scale"
-              >
-                <span>{isDemoPlaying ? "■" : "▶"}</span>
-                <span>{language === "uk" ? "Демо" : "Demo"}</span>
-              </button>
-            ) : null}
           </div>
           <div className="flex flex-col gap-2">
             {tour.points.map((point, index) => (
@@ -196,8 +206,16 @@ export function TourDetailContent() {
                 key={point.id}
                 className="flex items-start gap-3 bg-card rounded-2xl p-4 border border-border"
               >
-                <div className="shrink-0 w-7 h-7 rounded-full bg-coral flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">
+                <div
+                  className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center ${
+                    index % 2 === 0 ? "bg-[#005BBB]" : "bg-[#FFD500]"
+                  }`}
+                >
+                  <span
+                    className={`text-xs font-bold ${
+                      index % 2 === 0 ? "text-white" : "text-[#0B1320]"
+                    }`}
+                  >
                     {index + 1}
                   </span>
                 </div>
@@ -233,7 +251,7 @@ export function TourDetailContent() {
             <div className="flex flex-row gap-2">
               <Link
                 href={`/room/solo/${tour.id}/live`}
-                className="w-full min-w-0 sm:flex-1 inline-flex items-center justify-between gap-3 rounded-2xl bg-coral text-white px-4 py-3.5 shadow-lg active-scale"
+                className={`w-full min-w-0 sm:flex-1 inline-flex items-center justify-between gap-3 rounded-2xl px-4 py-3.5 ${blueCtaClass}`}
               >
                 <div className="flex min-w-0 flex-col items-start">
                   <span className="text-[10px] uppercase font-semibold tracking-wide text-white/80">
@@ -250,20 +268,20 @@ export function TourDetailContent() {
               </Link>
               <Link
                 href={`/room/create/${tour.id}`}
-                className="w-full min-w-0 sm:flex-1 inline-flex items-center justify-between gap-3 rounded-2xl bg-primary text-white px-4 py-3.5 shadow-lg active-scale"
+                className={`w-full min-w-0 sm:flex-1 inline-flex items-center justify-between gap-3 rounded-2xl px-4 py-3.5 ${yellowCtaClass}`}
               >
                 <div className="flex min-w-0 flex-col items-start">
-                  <span className="text-[10px] uppercase font-semibold tracking-wide text-white/80">
+                  <span className="text-[10px] uppercase font-semibold tracking-wide text-[#0B1320]/75">
                     {dict.tour.startGroup}
                   </span>
-                  <span className="text-xs font-medium text-white/80 wrap-break-word">
+                  <span className="text-xs font-medium text-[#0B1320]/75 wrap-break-word">
                     {dict.tour.upToPeople.replace(
                       "{count}",
                       String(tour.maxParticipants),
                     )}
                   </span>
                 </div>
-                <div className="shrink-0 flex items-center gap-2 text-xs font-semibold bg-coral/15 rounded-full px-3 py-1">
+                <div className="shrink-0 flex items-center gap-2 text-xs font-semibold bg-[#0B1320]/10 rounded-full px-3 py-1">
                   <Navigation className="w-3.5 h-3.5" />
                   <span>{dict.common.start}</span>
                 </div>
@@ -273,7 +291,7 @@ export function TourDetailContent() {
             <div className="flex flex-row gap-2">
               <Link
                 href={`/room/solo/${tour.id}/live`}
-                className="flex-1 min-w-0 inline-flex items-center justify-between gap-2 rounded-2xl bg-coral text-white px-3 py-3.5 shadow-lg active-scale"
+                className={`flex-1 min-w-0 inline-flex items-center justify-between gap-2 rounded-2xl px-3 py-3.5 ${blueCtaClass}`}
               >
                 <div className="flex min-w-0 flex-col items-start">
                   <span className="text-[10px] uppercase font-semibold tracking-wide text-white/80">
@@ -290,17 +308,17 @@ export function TourDetailContent() {
               </Link>
               <Link
                 href={groupBuyHref}
-                className="flex-1 min-w-0 inline-flex items-center justify-between gap-2 rounded-2xl bg-primary text-primary-foreground px-3 py-3.5 shadow-md border border-white/5 active-scale"
+                className={`flex-1 min-w-0 inline-flex items-center justify-between gap-2 rounded-2xl px-3 py-3.5 ${yellowCtaClass}`}
               >
                 <div className="flex min-w-0 flex-col items-start">
-                  <span className="text-[10px] uppercase font-semibold tracking-wide text-primary-foreground/70">
+                  <span className="text-[10px] uppercase font-semibold tracking-wide text-[#0B1320]/70">
                     {dict.tour.upgradeToGroup}
                   </span>
-                  <span className="text-base font-bold leading-tight text-primary-foreground">
+                  <span className="text-base font-bold leading-tight text-[#0B1320]">
                     ₴{tour.groupPrice}
                   </span>
                 </div>
-                <div className="shrink-0 flex flex-col items-end text-[10px] font-medium text-primary-foreground/80">
+                <div className="shrink-0 flex flex-col items-end text-[10px] font-medium text-[#0B1320]/80">
                   <span>
                     {dict.tour.upToPeople.replace(
                       "{count}",
@@ -314,7 +332,7 @@ export function TourDetailContent() {
             <div className="flex gap-3">
               <Link
                 href={soloBuyHref}
-                className="flex-1 inline-flex items-center justify-between gap-3 rounded-2xl bg-coral text-white px-4 py-3.5 shadow-lg active-scale"
+                className={`flex-1 inline-flex items-center justify-between gap-3 rounded-2xl px-4 py-3.5 ${blueCtaClass}`}
               >
                 <div className="flex flex-col items-start">
                   <span className="text-[10px] uppercase font-semibold tracking-wide text-white/80">
@@ -327,17 +345,17 @@ export function TourDetailContent() {
               </Link>
               <Link
                 href={groupBuyHref}
-                className="flex-1 inline-flex items-center justify-between gap-3 rounded-2xl bg-primary text-primary-foreground px-4 py-3.5 shadow-md border border-white/5 active-scale"
+                className={`flex-1 inline-flex items-center justify-between gap-3 rounded-2xl px-4 py-3.5 ${yellowCtaClass}`}
               >
                 <div className="flex flex-col items-start">
-                  <span className="text-[10px] uppercase font-semibold tracking-wide text-primary-foreground/70">
+                  <span className="text-[10px] uppercase font-semibold tracking-wide text-[#0B1320]/70">
                     {dict.tour.groupTour}
                   </span>
-                  <span className="text-lg font-bold leading-tight">
+                  <span className="text-lg font-bold leading-tight text-[#0B1320]">
                     ₴{tour.groupPrice}
                   </span>
                 </div>
-                <div className="flex flex-col items-end text-[10px] font-medium text-primary-foreground/80">
+                <div className="flex flex-col items-end text-[10px] font-medium text-[#0B1320]/80">
                   <span>
                     {dict.tour.upToPeople.replace(
                       "{count}",

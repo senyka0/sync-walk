@@ -72,9 +72,8 @@ export function RoomDoneContent() {
     <div className="flex flex-col min-h-screen bg-background px-5 page-enter">
       <div className="flex flex-col items-center pt-14 pb-8 gap-4">
         <div className="relative w-28 h-28 flex items-center justify-center">
-          <div className="absolute inset-0 rounded-full bg-coral/20 animate-ping" />
-          <div className="absolute inset-2 rounded-full bg-coral/30" />
-          <div className="w-20 h-20 rounded-full bg-coral flex items-center justify-center shadow-2xl">
+          <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+          <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-2xl">
             <Trophy className="w-10 h-10 text-white" strokeWidth={1.5} />
           </div>
         </div>
@@ -97,7 +96,7 @@ export function RoomDoneContent() {
             onClick={() => setRecommendation("yes")}
             className={`flex items-center justify-center gap-2 rounded-xl border py-3 text-sm font-bold active-scale ${
               recommendation === "yes"
-                ? "border-coral bg-coral text-white"
+                ? "border-secondary bg-secondary text-secondary-foreground"
                 : "border-border bg-background text-foreground"
             }`}
           >
@@ -109,7 +108,7 @@ export function RoomDoneContent() {
             onClick={() => setRecommendation("no")}
             className={`flex items-center justify-center gap-2 rounded-xl border py-3 text-sm font-bold active-scale ${
               recommendation === "no"
-                ? "border-coral bg-coral text-white"
+                ? "border-secondary bg-secondary text-secondary-foreground"
                 : "border-border bg-background text-foreground"
             }`}
           >
@@ -140,7 +139,7 @@ export function RoomDoneContent() {
       <button
         onClick={handleSubmit}
         disabled={submitted || !canSubmit}
-        className="w-full bg-coral text-white rounded-2xl py-4 font-bold text-base active-scale shadow-lg disabled:opacity-70 flex items-center justify-center gap-2 mb-3"
+        className="w-full bg-primary text-primary-foreground rounded-2xl py-4 font-bold text-base active-scale shadow-lg disabled:opacity-70 flex items-center justify-center gap-2 mb-3"
       >
         <Home className="w-5 h-5" />
         {submitted ? dict.roomDone.redirecting : dict.roomDone.submitAndHome}

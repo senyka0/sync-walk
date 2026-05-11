@@ -359,7 +359,7 @@ export function TourDemoContent() {
   }
 
   return (
-    <div className="flex h-screen flex-col bg-background">
+    <div className="flex h-dvh flex-col overflow-hidden bg-background">
       <div className="relative h-[45svh] w-full shrink-0 overflow-hidden bg-secondary">
         <MapboxRouteMap
           points={tour.points}
@@ -371,10 +371,10 @@ export function TourDemoContent() {
         <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
           <button
             onClick={() => router.push(buyHref)}
-            className="w-10 h-10 rounded-full glass flex items-center justify-center active-scale"
+            className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
             aria-label={dict.common.back}
           >
-            <ArrowLeft className="w-5 h-5 text-white" />
+            <ArrowLeft className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-1 bg-coral rounded-full px-3 py-1">
             <span className="text-white text-[10px] font-bold uppercase tracking-wider">
@@ -411,7 +411,7 @@ export function TourDemoContent() {
         ) : null}
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto bg-background px-5">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-background px-5">
         <div className="pt-5 pb-3">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 bg-coral/20 text-coral text-[10px] font-bold rounded-full uppercase tracking-wider">
@@ -593,7 +593,7 @@ export function TourDemoContent() {
         <div className="mt-auto pt-5 pb-5 flex flex-col gap-2 safe-bottom">
           <Link
             href={buyHref}
-            className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-coral text-white px-4 py-3.5 shadow-lg active-scale"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-primary text-primary-foreground px-4 py-3.5 shadow-lg active-scale"
           >
             <span className="text-sm font-semibold">
               {dict.tourDemo.buyTour}

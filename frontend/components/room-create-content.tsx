@@ -73,7 +73,7 @@ export function RoomCreateContent() {
       <div className="flex items-center gap-3 pt-4 pb-6">
         <button
           onClick={() => router.back()}
-          className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center active-scale"
+          className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >
           <ArrowLeft className="w-5 h-5" />
@@ -165,7 +165,7 @@ export function RoomCreateContent() {
             disabled={!canStart}
             className={`w-full rounded-2xl py-4 font-bold text-base flex items-center justify-center gap-2 active-scale transition-all ${
               canStart
-                ? "bg-coral text-white shadow-lg"
+                ? "bg-primary text-primary-foreground shadow-lg"
                 : "bg-muted text-muted-foreground cursor-not-allowed"
             }`}
           >

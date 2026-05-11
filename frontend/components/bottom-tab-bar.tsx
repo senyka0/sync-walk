@@ -34,7 +34,7 @@ export function BottomTabBar() {
               key={href}
               href={href}
               className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl active-scale transition-colors ${
-                isActive ? "text-coral" : "text-muted-foreground"
+                isActive ? "text-primary" : "text-muted-foreground"
               }`}
             >
               <Icon
@@ -43,7 +43,7 @@ export function BottomTabBar() {
               />
               <span
                 className={`text-[10px] font-semibold tracking-wide ${
-                  isActive ? "text-coral" : "text-muted-foreground"
+                  isActive ? "text-secondary" : "text-muted-foreground"
                 }`}
               >
                 {label}

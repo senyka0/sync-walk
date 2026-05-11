@@ -22,12 +22,12 @@ export function SplashScreen() {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-navy transition-opacity duration-400 ${
+      className={`fixed inset-0 z-9999 flex flex-col items-center justify-center bg-navy transition-opacity duration-400 ${
         fading ? "opacity-0" : "opacity-100"
       }`}
     >
       <div className="flex flex-col items-center gap-4">
-        <div className="relative flex items-center justify-center w-20 h-20 rounded-2xl bg-coral shadow-2xl">
+        <div className="relative flex items-center justify-center w-20 h-20 rounded-2xl shadow-2xl bg-[linear-gradient(180deg,#005BBB_50%,#FFD500_50%)]">
           <Headphones className="w-10 h-10 text-white" strokeWidth={1.5} />
         </div>
         <div className="flex flex-col items-center gap-1">
@@ -39,7 +39,9 @@ export function SplashScreen() {
         {[0, 1, 2].map((i) => (
           <div
             key={i}
-            className="w-1.5 h-1.5 rounded-full bg-coral/80 animate-bounce"
+            className={`w-1.5 h-1.5 rounded-full animate-bounce ${
+              i % 2 === 0 ? "bg-[#005BBB]" : "bg-[#FFD500]"
+            }`}
             style={{ animationDelay: `${i * 150}ms` }}
           />
         ))}

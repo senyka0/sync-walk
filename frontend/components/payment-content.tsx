@@ -208,7 +208,7 @@ export function PaymentContent() {
       <div className="flex items-center gap-3 pt-4 pb-6">
         <button
           onClick={() => router.back()}
-          className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center active-scale"
+          className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >
           <ArrowLeft className="w-5 h-5" />
@@ -284,7 +284,7 @@ export function PaymentContent() {
           </p>
           <button
             onClick={handleRetry}
-            className="px-8 py-3 bg-coral text-white rounded-2xl font-bold active-scale"
+            className="px-8 py-3 bg-primary text-primary-foreground rounded-2xl font-bold active-scale"
           >
             {dict.payment.tryAgain}
           </button>
@@ -293,7 +293,7 @@ export function PaymentContent() {
         <button
           onClick={handlePay}
           disabled={paymentStatus === "processing" || isVerifying}
-          className="w-full bg-coral text-white rounded-2xl py-4 font-bold text-lg active-scale shadow-lg disabled:opacity-70 flex items-center justify-center gap-2"
+          className="w-full bg-primary text-primary-foreground rounded-2xl py-4 font-bold text-lg active-scale shadow-lg disabled:opacity-70 flex items-center justify-center gap-2"
         >
           {paymentStatus === "processing" || isVerifying ? (
             <>

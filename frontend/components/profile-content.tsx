@@ -51,13 +51,13 @@ export function ProfileContent() {
         </p>
         <Link
           href="/auth/login"
-          className="w-full max-w-xs bg-coral text-white rounded-2xl py-3.5 text-center font-bold active-scale"
+          className="w-full max-w-xs bg-primary text-primary-foreground rounded-2xl py-3.5 text-center font-bold active-scale"
         >
           {dict.auth.signIn}
         </Link>
         <Link
           href="/auth/register"
-          className="w-full max-w-xs bg-card border border-border text-foreground rounded-2xl py-3.5 text-center font-bold active-scale"
+          className="w-full max-w-xs bg-secondary border border-[#E6C000] text-secondary-foreground rounded-2xl py-3.5 text-center font-bold active-scale"
         >
           {dict.profile.createAccount}
         </Link>
@@ -74,10 +74,10 @@ export function ProfileContent() {
   return (
     <div className="flex flex-col pb-safe page-enter">
       <div className="bg-card px-5 pt-8 pb-10 relative overflow-hidden border-b border-border">
-        <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-coral/20" />
+        <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-primary/20" />
         <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-muted/40" />
         <div className="relative flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-coral flex items-center justify-center text-white text-2xl font-bold ring-2 ring-coral/30">
+          <div className="w-16 h-16 rounded-2xl bg-[linear-gradient(180deg,#005BBB_50%,#FFD500_50%)] flex items-center justify-center text-white text-2xl font-bold ring-2 ring-primary/30">
             {user.name[0]}
           </div>
           <div>
@@ -91,8 +91,8 @@ export function ProfileContent() {
           href="/profile/tours"
           className="flex items-center gap-4 bg-card rounded-2xl p-4 border border-border active-scale"
         >
-          <div className="w-10 h-10 rounded-xl bg-coral/10 flex items-center justify-center">
-            <Headphones className="w-5 h-5 text-coral" />
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Headphones className="w-5 h-5 text-primary" />
           </div>
           <div className="flex-1">
             <p className="font-semibold text-foreground text-sm">
@@ -109,8 +109,8 @@ export function ProfileContent() {
           href="/room/join"
           className="flex items-center gap-4 bg-card rounded-2xl p-4 border border-border active-scale"
         >
-          <div className="w-10 h-10 rounded-xl bg-coral/10 flex items-center justify-center">
-            <Users className="w-5 h-5 text-coral" />
+          <div className="w-10 h-10 rounded-xl bg-secondary/30 flex items-center justify-center">
+            <Users className="w-5 h-5 text-[#0B1320]" />
           </div>
           <div className="flex-1">
             <p className="font-semibold text-foreground text-sm">
@@ -141,7 +141,7 @@ export function ProfileContent() {
           <button
             onClick={toggleDarkMode}
             className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
-              isDarkMode ? "bg-coral" : "bg-muted"
+              isDarkMode ? "bg-primary" : "bg-muted"
             }`}
             role="switch"
             aria-checked={isDarkMode}

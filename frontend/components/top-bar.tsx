@@ -130,7 +130,7 @@ export function TopBar() {
         </div>
       </div>
       <Link href="/profile" className="active-scale">
-        <div className="w-9 h-9 rounded-full bg-coral flex items-center justify-center text-white font-bold text-sm">
+        <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-white font-bold text-sm">
           {user?.name?.[0] ?? "?"}
         </div>
       </Link>
