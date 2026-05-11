@@ -51,7 +51,7 @@ export function RoomJoinContent() {
   if (joined) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen px-5 gap-6 page-enter">
-        <div className="w-20 h-20 rounded-full bg-coral flex items-center justify-center">
+        <div className="w-20 h-20 rounded-full flex items-center justify-center bg-[linear-gradient(180deg,#005BBB_50%,#FFD500_50%)]">
           <Headphones className="w-10 h-10 text-white" strokeWidth={1.5} />
         </div>
         <div className="text-center">
@@ -79,7 +79,7 @@ export function RoomJoinContent() {
     <div className="flex flex-col min-h-screen bg-background px-5 page-enter">
       <div className="flex-1 flex flex-col justify-center gap-6">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-16 h-16 bg-coral rounded-2xl flex items-center justify-center shadow-xl">
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl bg-[linear-gradient(180deg,#005BBB_50%,#FFD500_50%)]">
             <Headphones className="w-8 h-8 text-white" strokeWidth={1.5} />
           </div>
           <div className="text-center">
@@ -112,7 +112,7 @@ export function RoomJoinContent() {
             <button
               onClick={handleJoin}
               disabled={loading}
-              className="w-full bg-coral text-white rounded-xl py-3.5 font-bold text-sm active-scale disabled:opacity-70 flex items-center justify-center gap-2"
+              className="w-full bg-primary text-primary-foreground rounded-xl py-3.5 font-bold text-sm active-scale disabled:opacity-70 flex items-center justify-center gap-2"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
               {dict.roomJoin.joinButton}
