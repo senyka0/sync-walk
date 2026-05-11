@@ -10,6 +10,7 @@ import {
   Navigation,
   Pause,
   Play,
+  Users,
   Volume2,
   VolumeX,
 } from "lucide-react";
@@ -68,7 +69,13 @@ export function TourDemoContent() {
   const params = useParams();
   const router = useRouter();
   const dict = useI18n();
-  const { fetchTourById, currentTour, language } = useAppStore();
+  const {
+    fetchTourById,
+    currentTour,
+    language,
+    purchasedAccess,
+    isAuthenticated,
+  } = useAppStore();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const watchIdRef = useRef<number | null>(null);
@@ -301,6 +308,13 @@ export function TourDemoContent() {
 
   const tourId = (params.id as string) ?? "";
   const buyHref = `/tours/${tourId}`;
+  const access = isAuthenticated ? purchasedAccess[tourId] : undefined;
+  const authHref = `/auth/login?next=${encodeURIComponent(`/tours/${tourId}`)}`;
+  const soloHref = access ? `/room/solo/${tourId}/live` : authHref;
+  const groupHref = access === "group" ? `/room/create/${tourId}` : authHref;
+  const blueCtaClass = "bg-[#005BBB] text-white shadow-lg active-scale";
+  const yellowCtaClass =
+    "bg-[#FFD500] text-[#0B1320] shadow-md border border-[#E6C000] active-scale";
   const exitSurveyOptions = [
     {
       reason: "too_expensive",
@@ -493,7 +507,7 @@ export function TourDemoContent() {
           <div className="relative h-10">
             <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1.5 bg-muted dark:bg-white/20 rounded-full overflow-hidden">
               <div
-                className="absolute left-0 top-0 h-full bg-coral rounded-full transition-all duration-100"
+                className="absolute left-0 top-0 h-full bg-[#005BBB] rounded-full transition-all duration-100"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -516,7 +530,7 @@ export function TourDemoContent() {
                 className="absolute inset-0 w-full touch-none"
               >
                 <SliderTrack className="relative w-full h-10 cursor-pointer">
-                  <SliderThumb className="absolute top-1/2 w-5 h-5 rounded-full bg-coral shadow-xl shadow-coral/30 ring-2 ring-white/70 dark:ring-white/70" />
+                  <SliderThumb className="absolute top-1/2 w-5 h-5 rounded-full bg-[#FFD500] shadow-xl shadow-[#FFD500]/30 ring-2 ring-white/70 dark:ring-white/70" />
                 </SliderTrack>
               </Slider>
             ) : null}
@@ -538,8 +552,8 @@ export function TourDemoContent() {
             disabled={!canPlay}
             className={`w-16 h-16 rounded-full flex items-center justify-center active-scale shadow-xl transition-opacity ${
               canPlay
-                ? "bg-coral shadow-coral/30"
-                : "bg-coral/40 shadow-none cursor-not-allowed"
+                ? "bg-[#005BBB] shadow-[#005BBB]/30"
+                : "bg-[#005BBB]/40 shadow-none cursor-not-allowed"
             }`}
             aria-label={isPlaying ? dict.roomLive.pause : dict.roomLive.play}
           >
@@ -552,7 +566,7 @@ export function TourDemoContent() {
           <button
             type="button"
             onClick={() => setIsMuted((m) => !m)}
-            className="w-11 h-11 rounded-full bg-coral text-white flex items-center justify-center active-scale shadow-md"
+            className="w-11 h-11 rounded-full bg-[#FFD500] text-[#0B1320] flex items-center justify-center active-scale shadow-md"
             aria-label={isMuted ? dict.roomLive.unmute : dict.roomLive.mute}
           >
             {isMuted ? (
@@ -591,14 +605,46 @@ export function TourDemoContent() {
         ) : null}
 
         <div className="mt-auto pt-5 pb-5 flex flex-col gap-2 safe-bottom">
-          <Link
-            href={buyHref}
-            className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-primary text-primary-foreground px-4 py-3.5 shadow-lg active-scale"
-          >
-            <span className="text-sm font-semibold">
-              {dict.tourDemo.buyTour}
-            </span>
-          </Link>
+          <div className="flex gap-2">
+            <Link
+              href={soloHref}
+              className={`w-full inline-flex items-center justify-between gap-2 rounded-2xl px-3 py-3.5 ${blueCtaClass}`}
+            >
+              <div className="flex min-w-0 flex-col items-start">
+                <span className="text-[10px] uppercase font-semibold tracking-wide text-white/80">
+                  {dict.tour.listenSolo}
+                </span>
+                <span className="text-xs font-medium text-white/80">
+                  {access ? dict.common.start : dict.tourDemo.buyTour}
+                </span>
+              </div>
+              <div className="shrink-0 flex items-center gap-1.5 text-xs font-semibold bg-white/15 rounded-full px-2.5 py-1">
+                <Navigation className="w-3.5 h-3.5" />
+                <span>{access ? dict.common.start : dict.auth.signIn}</span>
+              </div>
+            </Link>
+            <Link
+              href={groupHref}
+              className={`w-full inline-flex items-center justify-between gap-2 rounded-2xl px-3 py-3.5 ${yellowCtaClass}`}
+            >
+              <div className="flex min-w-0 flex-col items-start">
+                <span className="text-[10px] uppercase font-semibold tracking-wide text-[#0B1320]/75">
+                  {dict.tour.startGroup}
+                </span>
+                <span className="text-xs font-medium text-[#0B1320]/75">
+                  {access === "group"
+                    ? dict.common.start
+                    : dict.tourDemo.buyTour}
+                </span>
+              </div>
+              <div className="shrink-0 flex items-center gap-1.5 text-xs font-semibold bg-[#0B1320]/10 rounded-full px-2.5 py-1">
+                <Users className="w-3.5 h-3.5" />
+                <span>
+                  {access === "group" ? dict.common.start : dict.auth.signIn}
+                </span>
+              </div>
+            </Link>
+          </div>
           <button
             type="button"
             onClick={handleBackToTour}

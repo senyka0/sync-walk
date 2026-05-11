@@ -5,7 +5,15 @@ import { useParams, useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
 import { buildApiAudioUrl, getAudioPathForLanguage } from "@/lib/audio";
-import { ArrowLeft, Clock, MapPin, Navigation, Sparkles } from "lucide-react";
+import {
+  ArrowLeft,
+  Clock,
+  MapPin,
+  Navigation,
+  Play,
+  Sparkles,
+  Square,
+} from "lucide-react";
 import Link from "next/link";
 import { MapboxRouteMap } from "@/components/mapbox-route-map";
 
@@ -153,13 +161,11 @@ export function TourDetailContent() {
                   }
                   className="mr-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-coral align-middle text-[10px] font-semibold text-white active-scale"
                 >
-                  <span
-                    className={`leading-none ${
-                      isDemoPlaying ? "" : "translate-x-px"
-                    }`}
-                  >
-                    {isDemoPlaying ? "■" : "▶"}
-                  </span>
+                  {isDemoPlaying ? (
+                    <Square className="h-3 w-3 fill-current" />
+                  ) : (
+                    <Play className="h-3 w-3 fill-current translate-x-px" />
+                  )}
                 </button>
               ) : null}
               {localizedDescription}
