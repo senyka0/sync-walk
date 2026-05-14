@@ -183,8 +183,26 @@ const dictionary = {
       shareWithFriends: "Share the tour with friends",
       soloAccess: "Solo access",
       groupTour: "Group tour",
+      buyJoinGroupTour: "Group mode",
       tryDemo: "Try demo",
       tryDemoHint: "Listen to the first stop for free",
+      groupHub: {
+        pageEyebrow: "Group tour",
+        intro:
+          "Group mode keeps everyone on the same audio beat. One person leads from a room; friends follow with a short code—no extra purchase for guests.",
+        whenHostTitle: "You are hosting",
+        whenHostBody:
+          "After you buy the group tour, open Start group tour, share the room code, and press start when your group is ready. Up to {count} people can listen together.",
+        whenJoinTitle: "You were invited",
+        whenJoinBody:
+          "Tap Join group and enter the code from your host. You only need your own solo purchase if you want to walk this route alone later.",
+        whenBuyBody:
+          "Buy the group tour once if you will create the room and lead the walk. Joining someone else's room only needs their code.",
+        joinGroupLine: "Join group",
+        joinGroupHint: "Have a room code",
+        buyGroupLine: "Buy group tour",
+        startGroupLine: "Start group tour",
+      },
     },
     tourDemo: {
       headerBadge: "Free demo",
@@ -443,8 +461,26 @@ const dictionary = {
       shareWithFriends: "Поділіться туром з друзями",
       soloAccess: "Соло доступ",
       groupTour: "Груповий тур",
+      buyJoinGroupTour: "Груповий режим",
       tryDemo: "Спробувати демо",
       tryDemoHint: "Послухайте першу зупинку безкоштовно",
+      groupHub: {
+        pageEyebrow: "Груповий тур",
+        intro:
+          "У груповому режимі всі слухають синхронно. Один учасник веде з кімнати; інші підключаються коротким кодом — гостям не потрібна окрема покупка.",
+        whenHostTitle: "Ви ведете групу",
+        whenHostBody:
+          "Після покупки групового туру відкрийте Почати груповий тур, поділіться кодом кімнати та натисніть старт, коли група готова. До {count} людей можуть слухати разом.",
+        whenJoinTitle: "Вас запросили",
+        whenJoinBody:
+          "Натисніть Приєднатися до групи та введіть код від гіда. Окремий соло-доступ потрібен лише якщо хочете пройти маршрут самостійно пізніше.",
+        whenBuyBody:
+          "Купіть груповий тур один раз, якщо ви створюватимете кімнату й вестимете прогулянку. Щоб приєднатися до чужої кімнати, достатньо коду.",
+        joinGroupLine: "Приєднатися до групи",
+        joinGroupHint: "Є код кімнати",
+        buyGroupLine: "Купити груповий тур",
+        startGroupLine: "Почати груповий тур",
+      },
     },
     tourDemo: {
       headerBadge: "Безкоштовне демо",

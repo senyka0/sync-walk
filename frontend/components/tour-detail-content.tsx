@@ -55,9 +55,9 @@ export function TourDetailContent() {
   const tour = currentTour;
   const access = isAuthenticated ? purchasedAccess[tour.id] : undefined;
   const authHref = `/auth/login?next=${encodeURIComponent(`/tours/${tour.id}`)}`;
-  const groupBuyHref = isAuthenticated
-    ? `/pay/${tour.id}?type=group`
-    : authHref;
+  const groupHubHref = isAuthenticated
+    ? `/tours/${tour.id}/group`
+    : `/auth/login?next=${encodeURIComponent(`/tours/${tour.id}/group`)}`;
   const soloBuyHref = isAuthenticated
     ? `/pay/${tour.id}?type=individual`
     : authHref;
@@ -313,19 +313,14 @@ export function TourDetailContent() {
                 </div>
               </Link>
               <Link
-                href={groupBuyHref}
+                href={groupHubHref}
                 className={`flex-1 min-w-0 inline-flex items-center justify-between gap-2 rounded-2xl px-3 py-3.5 ${yellowCtaClass}`}
               >
                 <div className="flex min-w-0 flex-col items-start">
                   <span className="text-[10px] uppercase font-semibold tracking-wide text-[#0B1320]/70">
-                    {dict.tour.upgradeToGroup}
+                    {dict.tour.buyJoinGroupTour}
                   </span>
-                  <span className="text-base font-bold leading-tight text-[#0B1320]">
-                    ₴{tour.groupPrice}
-                  </span>
-                </div>
-                <div className="shrink-0 flex flex-col items-end text-[10px] font-medium text-[#0B1320]/80">
-                  <span>
+                  <span className="text-xs font-medium text-[#0B1320]/75 wrap-break-word">
                     {dict.tour.upToPeople.replace(
                       "{count}",
                       String(tour.maxParticipants),
@@ -350,19 +345,14 @@ export function TourDetailContent() {
                 </div>
               </Link>
               <Link
-                href={groupBuyHref}
+                href={groupHubHref}
                 className={`flex-1 inline-flex items-center justify-between gap-3 rounded-2xl px-4 py-3.5 ${yellowCtaClass}`}
               >
-                <div className="flex flex-col items-start">
+                <div className="flex flex-col items-start min-w-0">
                   <span className="text-[10px] uppercase font-semibold tracking-wide text-[#0B1320]/70">
-                    {dict.tour.groupTour}
+                    {dict.tour.buyJoinGroupTour}
                   </span>
-                  <span className="text-lg font-bold leading-tight text-[#0B1320]">
-                    ₴{tour.groupPrice}
-                  </span>
-                </div>
-                <div className="flex flex-col items-end text-[10px] font-medium text-[#0B1320]/80">
-                  <span>
+                  <span className="text-xs font-medium text-[#0B1320]/75 wrap-break-word">
                     {dict.tour.upToPeople.replace(
                       "{count}",
                       String(tour.maxParticipants),

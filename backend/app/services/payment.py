@@ -7,6 +7,7 @@ from decimal import Decimal, InvalidOperation
 
 import httpx
 from sqlalchemy import select
+from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
@@ -112,12 +113,40 @@ def start_payment_status_monitor(order_reference: str) -> None:
     task.add_done_callback(lambda _: _payment_monitor_tasks.pop(order_reference, None))
 
 
+def _is_undefined_payments_table(exc: BaseException) -> bool:
+    to_visit: list[BaseException | None] = [exc]
+    seen: set[int] = set()
+    while to_visit:
+        cur = to_visit.pop()
+        if cur is None or id(cur) in seen:
+            continue
+        seen.add(id(cur))
+        if type(cur).__name__ == "UndefinedTableError":
+            return True
+        if isinstance(cur, ProgrammingError):
+            orig = getattr(cur, "orig", None)
+            if orig is not None:
+                to_visit.append(orig)
+        cause = getattr(cur, "__cause__", None)
+        if cause is not None:
+            to_visit.append(cause)
+    return False
+
+
 async def start_pending_payment_status_monitors() -> None:
-    async with async_session() as db:
-        result = await db.execute(
-            select(Payment).where(Payment.status == PaymentStatus.PENDING)
-        )
-        payments = result.scalars().all()
+    try:
+        async with async_session() as db:
+            result = await db.execute(
+                select(Payment).where(Payment.status == PaymentStatus.PENDING)
+            )
+            payments = result.scalars().all()
+    except ProgrammingError as exc:
+        if _is_undefined_payments_table(exc):
+            logger.warning(
+                "payments table missing; skipping pending payment monitors",
+            )
+            return
+        raise
 
     now = datetime.now(timezone.utc)
     for payment in payments:
