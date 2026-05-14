@@ -374,7 +374,7 @@ export function TourDemoContent() {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-background">
-      <div className="relative h-[45svh] w-full shrink-0 overflow-hidden bg-secondary">
+      <div className="relative h-[38svh] min-h-40 max-h-[45svh] w-full shrink-0 overflow-hidden bg-secondary sm:h-[45svh] sm:max-h-none">
         <MapboxRouteMap
           points={tour.points}
           currentIndex={0}
@@ -425,20 +425,20 @@ export function TourDemoContent() {
         ) : null}
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-background px-5">
-        <div className="pt-5 pb-3">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden bg-background px-4 pb-[env(safe-area-inset-bottom)] sm:px-5">
+        <div className="pt-3 pb-2 shrink-0 sm:pt-5 sm:pb-3">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 bg-coral/20 text-coral text-[10px] font-bold rounded-full uppercase tracking-wider">
               {dict.tourDemo.stopLabel}
             </span>
-            <span className="text-[11px] text-muted-foreground line-clamp-1">
+            <span className="text-[10px] text-muted-foreground line-clamp-1 sm:text-[11px]">
               {localizedTitle}
             </span>
           </div>
-          <h2 className="text-xl font-bold text-foreground leading-tight text-balance">
+          <h2 className="text-lg font-bold text-foreground leading-tight text-balance sm:text-xl">
             {localizedPointTitle || dict.common.loading}
           </h2>
-          <p className="text-sm text-muted-foreground mt-1 leading-relaxed line-clamp-3">
+          <p className="text-xs text-muted-foreground mt-1 leading-relaxed line-clamp-3 sm:text-sm">
             {localizedPointDescription || dict.tourDemo.subtitle}
           </p>
         </div>
@@ -503,8 +503,8 @@ export function TourDemoContent() {
           </div>
         ) : null}
 
-        <div className="py-3">
-          <div className="relative h-10">
+        <div className="py-2 shrink-0 sm:py-3">
+          <div className="relative h-9 sm:h-10">
             <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1.5 bg-muted dark:bg-white/20 rounded-full overflow-hidden">
               <div
                 className="absolute left-0 top-0 h-full bg-[#005BBB] rounded-full transition-all duration-100"
@@ -529,8 +529,8 @@ export function TourDemoContent() {
                 isDisabled={!canPlay}
                 className="absolute inset-0 w-full touch-none"
               >
-                <SliderTrack className="relative w-full h-10 cursor-pointer">
-                  <SliderThumb className="absolute top-1/2 w-5 h-5 rounded-full bg-[#FFD500] shadow-xl shadow-[#FFD500]/30 ring-2 ring-white/70 dark:ring-white/70" />
+                <SliderTrack className="relative w-full h-9 cursor-pointer sm:h-10">
+                  <SliderThumb className="absolute top-1/2 w-4 h-4 rounded-full bg-[#FFD500] shadow-xl shadow-[#FFD500]/30 ring-2 ring-white/70 dark:ring-white/70 sm:w-5 sm:h-5" />
                 </SliderTrack>
               </Slider>
             ) : null}
@@ -545,12 +545,12 @@ export function TourDemoContent() {
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-6">
+        <div className="flex items-center justify-center gap-3 pb-1 sm:gap-6 sm:pb-0 shrink-0">
           <button
             type="button"
             onClick={handlePlayPause}
             disabled={!canPlay}
-            className={`w-16 h-16 rounded-full flex items-center justify-center active-scale shadow-xl transition-opacity ${
+            className={`w-14 h-14 rounded-full flex items-center justify-center active-scale shadow-xl transition-opacity sm:w-16 sm:h-16 ${
               canPlay
                 ? "bg-[#005BBB] shadow-[#005BBB]/30"
                 : "bg-[#005BBB]/40 shadow-none cursor-not-allowed"
@@ -558,21 +558,21 @@ export function TourDemoContent() {
             aria-label={isPlaying ? dict.roomLive.pause : dict.roomLive.play}
           >
             {isPlaying ? (
-              <Pause className="w-7 h-7 text-white" />
+              <Pause className="w-6 h-6 text-white sm:w-7 sm:h-7" />
             ) : (
-              <Play className="w-7 h-7 text-white ml-1" />
+              <Play className="w-6 h-6 text-white ml-0.5 sm:ml-1 sm:w-7 sm:h-7" />
             )}
           </button>
           <button
             type="button"
             onClick={() => setIsMuted((m) => !m)}
-            className="w-11 h-11 rounded-full bg-[#FFD500] text-[#0B1320] flex items-center justify-center active-scale shadow-md"
+            className="w-10 h-10 rounded-full bg-[#FFD500] text-[#0B1320] flex items-center justify-center active-scale shadow-md sm:w-11 sm:h-11"
             aria-label={isMuted ? dict.roomLive.unmute : dict.roomLive.mute}
           >
             {isMuted ? (
-              <VolumeX className="w-5 h-5" />
+              <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
             ) : (
-              <Volume2 className="w-5 h-5" />
+              <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
             )}
           </button>
         </div>
@@ -604,11 +604,11 @@ export function TourDemoContent() {
           />
         ) : null}
 
-        <div className="mt-auto pt-5 pb-5 flex flex-col gap-2 safe-bottom">
-          <div className="flex gap-2">
+        <div className="mt-auto flex flex-col gap-2 pt-3 pb-3 sm:pt-5 sm:pb-5">
+          <div className="flex gap-1.5 sm:gap-2">
             <Link
               href={soloHref}
-              className={`w-full inline-flex items-center justify-between gap-2 rounded-2xl px-3 py-3.5 ${blueCtaClass}`}
+              className={`w-full min-w-0 inline-flex items-center justify-between gap-1.5 rounded-2xl px-2.5 py-2.5 sm:gap-2 sm:px-3 sm:py-3.5 ${blueCtaClass}`}
             >
               <div className="flex min-w-0 flex-col items-start">
                 <span className="text-[10px] uppercase font-semibold tracking-wide text-white/80">
@@ -618,14 +618,14 @@ export function TourDemoContent() {
                   {access ? dict.common.start : dict.tourDemo.buyTour}
                 </span>
               </div>
-              <div className="shrink-0 flex items-center gap-1.5 text-xs font-semibold bg-white/15 rounded-full px-2.5 py-1">
-                <Navigation className="w-3.5 h-3.5" />
+              <div className="shrink-0 flex items-center gap-1 text-[10px] font-semibold bg-white/15 rounded-full px-2 py-0.5 sm:gap-1.5 sm:text-xs sm:px-2.5 sm:py-1">
+                <Navigation className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 <span>{access ? dict.common.start : dict.auth.signIn}</span>
               </div>
             </Link>
             <Link
               href={groupHref}
-              className={`w-full inline-flex items-center justify-between gap-2 rounded-2xl px-3 py-3.5 ${yellowCtaClass}`}
+              className={`w-full min-w-0 inline-flex items-center justify-between gap-1.5 rounded-2xl px-2.5 py-2.5 sm:gap-2 sm:px-3 sm:py-3.5 ${yellowCtaClass}`}
             >
               <div className="flex min-w-0 flex-col items-start">
                 <span className="text-[10px] uppercase font-semibold tracking-wide text-[#0B1320]/75">
@@ -637,8 +637,8 @@ export function TourDemoContent() {
                     : dict.tourDemo.buyTour}
                 </span>
               </div>
-              <div className="shrink-0 flex items-center gap-1.5 text-xs font-semibold bg-[#0B1320]/10 rounded-full px-2.5 py-1">
-                <Users className="w-3.5 h-3.5" />
+              <div className="shrink-0 flex items-center gap-1 text-[10px] font-semibold bg-[#0B1320]/10 rounded-full px-2 py-0.5 sm:gap-1.5 sm:text-xs sm:px-2.5 sm:py-1">
+                <Users className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 <span>
                   {access === "group" ? dict.common.start : dict.auth.signIn}
                 </span>
@@ -648,7 +648,7 @@ export function TourDemoContent() {
           <button
             type="button"
             onClick={handleBackToTour}
-            className="w-full inline-flex items-center justify-center gap-2 rounded-2xl border border-border bg-card text-foreground px-4 py-3 active-scale"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-2xl border border-border bg-card text-foreground px-3 py-2.5 text-sm active-scale sm:px-4 sm:py-3"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm font-medium">

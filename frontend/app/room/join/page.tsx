@@ -20,7 +20,7 @@ export default function RoomEnterCodePage() {
     <main className="mx-auto max-w-md flex flex-col min-h-screen bg-background px-5 page-enter">
       <div className="pt-4 pb-3">
         <button
-          onClick={() => router.push("/")}
+          onClick={() => router.back()}
           className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >

@@ -320,7 +320,7 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-background">
-      <div className="relative h-[50svh] w-full shrink-0 overflow-hidden bg-secondary">
+      <div className="relative h-[40svh] min-h-45 max-h-[50svh] w-full shrink-0 overflow-hidden bg-secondary sm:h-[50svh] sm:max-h-none">
         <MapboxRouteMap
           points={tour?.points ?? []}
           currentIndex={currentTrackIndex}
@@ -371,23 +371,23 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
           {dict.common.map}
         </div>
       </div>
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-background px-5">
-        <div className="pt-5 pb-3">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden bg-background px-4 pb-[env(safe-area-inset-bottom)] sm:px-5">
+        <div className="pt-3 pb-2 sm:pt-5 sm:pb-3 shrink-0">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 bg-coral/20 text-coral text-[10px] font-bold rounded-full uppercase tracking-wider">
               {dict.roomLive.stop} {currentTrackIndex + 1} /{" "}
               {tour?.points.length ?? 1}
             </span>
           </div>
-          <h2 className="text-xl font-bold text-foreground leading-tight text-balance">
+          <h2 className="text-lg font-bold text-foreground leading-tight text-balance sm:text-xl">
             {localizedPointTitle || dict.common.loading}
           </h2>
-          <p className="text-sm text-muted-foreground mt-1 leading-relaxed line-clamp-2">
+          <p className="text-xs text-muted-foreground mt-1 leading-relaxed line-clamp-2 sm:text-sm">
             {localizedPointDescription}
           </p>
         </div>
-        <div className="py-3">
-          <div className="relative h-10">
+        <div className="py-2 sm:py-3 shrink-0">
+          <div className="relative h-9 sm:h-10">
             <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1.5 bg-muted dark:bg-white/20 rounded-full overflow-hidden">
               <div
                 className="absolute left-0 top-0 h-full bg-secondary rounded-full transition-all duration-100"
@@ -408,8 +408,8 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
                 isDisabled={!isAudioReady}
                 className="absolute inset-0 w-full touch-none"
               >
-                <SliderTrack className="relative w-full h-10 cursor-pointer">
-                  <SliderThumb className="absolute top-1/2 w-5 h-5 rounded-full bg-primary shadow-xl shadow-primary/30 ring-2 ring-white/70 dark:ring-white/70" />
+                <SliderTrack className="relative w-full h-9 cursor-pointer sm:h-10">
+                  <SliderThumb className="absolute top-1/2 w-4 h-4 rounded-full bg-primary shadow-xl shadow-primary/30 ring-2 ring-white/70 dark:ring-white/70 sm:w-5 sm:h-5" />
                 </SliderTrack>
               </Slider>
             )}
@@ -424,49 +424,47 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
           </div>
         </div>
         {isHostView ? (
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-center gap-8">
+          <div className="flex flex-col gap-3 sm:gap-4 shrink-0">
+            <div className="flex items-center justify-center gap-2 sm:gap-6 md:gap-8">
               <button
                 onClick={prevTrack}
-                className="w-11 h-11 rounded-full bg-primary text-white dark:bg-primary flex items-center justify-center active-scale shadow-md"
+                className="w-10 h-10 rounded-full bg-primary text-white dark:bg-primary flex items-center justify-center active-scale shadow-md sm:w-11 sm:h-11"
                 aria-label={dict.roomLive.previousStop}
               >
-                <SkipBack className="w-5 h-5" />
+                <SkipBack className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
               <button
                 onClick={isPlaying ? pause : play}
-                className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center active-scale shadow-xl shadow-secondary/30"
+                className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center active-scale shadow-xl shadow-secondary/30 sm:w-16 sm:h-16"
                 aria-label={
                   isPlaying ? dict.roomLive.pause : dict.roomLive.play
                 }
               >
                 {isPlaying ? (
-                  <Pause className="w-7 h-7 text-white" />
+                  <Pause className="w-6 h-6 text-white sm:w-7 sm:h-7" />
                 ) : (
-                  <Play className="w-7 h-7 text-white ml-1" />
+                  <Play className="w-6 h-6 text-white ml-0.5 sm:ml-1 sm:w-7 sm:h-7" />
                 )}
               </button>
 
               <button
                 onClick={nextTrack}
-                className="w-11 h-11 rounded-full bg-primary text-white dark:bg-primary flex items-center justify-center active-scale shadow-md"
+                className="w-10 h-10 rounded-full bg-primary text-white dark:bg-primary flex items-center justify-center active-scale shadow-md sm:w-11 sm:h-11"
                 aria-label={dict.roomLive.nextStop}
               >
-                <SkipForward className="w-5 h-5" />
+                <SkipForward className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
-            </div>
 
-            <div className="flex items-center gap-3">
               <button
                 onClick={toggleMute}
-                className="w-11 h-11 rounded-full bg-primary text-white dark:bg-primary flex items-center justify-center active-scale shadow-md"
+                className="w-10 h-10 rounded-full bg-primary text-white dark:bg-primary flex items-center justify-center active-scale shadow-md sm:w-11 sm:h-11"
                 aria-label={isMuted ? dict.roomLive.unmute : dict.roomLive.mute}
               >
                 {isMuted ? (
-                  <VolumeX className="w-5 h-5" />
+                  <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
                 ) : (
-                  <Volume2 className="w-5 h-5" />
+                  <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 )}
               </button>
             </div>
@@ -474,7 +472,7 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
             {!isSolo && (
               <button
                 onClick={() => setShowManage(!showManage)}
-                className="w-full flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral rounded-xl py-3 text-sm font-semibold active-scale"
+                className="w-full flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral rounded-xl py-2.5 text-sm font-semibold active-scale sm:py-3"
               >
                 <Users className="w-4 h-4" />
                 {dict.roomLive.manageGroup.replace(
@@ -529,10 +527,10 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
                 </button>
               </div>
             )}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
               <button
                 onClick={handleEndTour}
-                className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground dark:bg-primary/25 dark:border-primary/40 border border-primary/40 rounded-xl py-3 text-sm font-semibold active-scale"
+                className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground dark:bg-primary/25 dark:border-primary/40 border border-primary/40 rounded-xl py-2.5 text-xs font-semibold active-scale sm:py-3 sm:text-sm"
               >
                 <Check className="w-4 h-4" />
                 {isSolo ? dict.roomLive.endSoloTour : dict.roomLive.endTour}
@@ -543,15 +541,15 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
                   tourTitle: localizedTourTitle,
                   roomCode: code,
                 }}
-                triggerClassName="w-full bg-secondary text-secondary-foreground border border-border dark:bg-secondary/10 dark:text-white dark:border-primary/30 rounded-xl py-3"
+                triggerClassName="w-full bg-secondary text-secondary-foreground border border-border dark:bg-secondary/10 dark:text-white dark:border-primary/30 rounded-xl py-2.5 text-xs sm:py-3 sm:text-sm"
               />
             </div>
           </div>
         ) : (
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral/20 rounded-xl px-4 py-3">
+          <div className="flex flex-col gap-3 sm:gap-4 shrink-0">
+            <div className="flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral/20 rounded-xl px-3 py-2.5 sm:px-4 sm:py-3">
               <Wifi className="w-4 h-4 text-emerald-400" />
-              <span className="text-sm text-white/90">
+              <span className="text-xs text-white/90 sm:text-sm">
                 {dict.roomLive.listeningWith.replace(
                   "{host}",
                   currentRoom?.hostName ?? dict.roomCreate.host,
@@ -561,7 +559,7 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
 
             <button
               onClick={toggleMute}
-              className={`w-full flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold active-scale ${
+              className={`w-full flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold active-scale sm:py-3 ${
                 isMuted
                   ? "bg-white text-black border border-border dark:bg-coral/25 dark:text-white dark:border-coral/40"
                   : "bg-coral text-white dark:bg-coral dark:text-white"
@@ -576,7 +574,7 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
             </button>
             <button
               onClick={handleLeave}
-              className="w-full flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral/25 dark:border-coral/40 border border-coral/40 rounded-xl py-3 text-sm font-semibold active-scale"
+              className="w-full flex items-center justify-center gap-2 bg-coral text-white dark:bg-coral/25 dark:border-coral/40 border border-coral/40 rounded-xl py-2.5 text-sm font-semibold active-scale sm:py-3"
             >
               <LogOut className="w-4 h-4" />
               {dict.roomLive.leaveGroup}
@@ -587,11 +585,11 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
                 tourTitle: localizedTourTitle,
                 roomCode: code,
               }}
-              triggerClassName="w-full bg-white text-black border border-border dark:bg-coral/10 dark:text-white dark:border-coral/30 rounded-xl py-3"
+              triggerClassName="w-full bg-white text-black border border-border dark:bg-coral/10 dark:text-white dark:border-coral/30 rounded-xl py-2.5 text-sm sm:py-3"
             />
           </div>
         )}
-        <p className="text-xs text-muted-foreground dark:text-white/55 mt-auto pt-4 pb-4 text-center">
+        <p className="text-[11px] text-muted-foreground dark:text-white/55 mt-auto pt-3 pb-3 text-center sm:pt-4 sm:pb-4 sm:text-xs">
           {dict.roomLive.keepAwakeFallback}
         </p>
       </div>

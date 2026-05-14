@@ -267,9 +267,6 @@ export function TourDetailContent() {
                   <span className="text-[10px] uppercase font-semibold tracking-wide text-white/80">
                     {dict.tour.listenSolo}
                   </span>
-                  <span className="text-xs font-medium text-white/80 wrap-break-word">
-                    {dict.tour.continueTour}
-                  </span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2 text-xs font-semibold bg-white/15 rounded-full px-3 py-1">
                   <Navigation className="w-3.5 h-3.5" />
@@ -277,7 +274,7 @@ export function TourDetailContent() {
                 </div>
               </Link>
               <Link
-                href={`/room/create/${tour.id}`}
+                href={groupHubHref}
                 className={`w-full min-w-0 sm:flex-1 inline-flex items-center justify-between gap-3 rounded-2xl px-4 py-3.5 ${yellowCtaClass}`}
               >
                 <div className="flex min-w-0 flex-col items-start">
@@ -290,10 +287,6 @@ export function TourDetailContent() {
                       String(tour.maxParticipants),
                     )}
                   </span>
-                </div>
-                <div className="shrink-0 flex items-center gap-2 text-xs font-semibold bg-[#0B1320]/10 rounded-full px-3 py-1">
-                  <Navigation className="w-3.5 h-3.5" />
-                  <span>{dict.common.start}</span>
                 </div>
               </Link>
             </div>
