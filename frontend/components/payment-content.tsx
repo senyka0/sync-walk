@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
+import Image from "next/image";
 import { ArrowLeft, CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -220,10 +221,12 @@ export function PaymentContent() {
           {dict.payment.orderSummary}
         </h2>
         <div className="flex items-start gap-4">
-          <img
+          <Image
             src={tour.coverImage}
             alt={localizedTitle}
-            className="w-16 h-16 rounded-xl object-cover shrink-0"
+            width={64}
+            height={64}
+            className="rounded-xl object-cover shrink-0"
           />
           <div className="flex-1 min-w-0">
             <p className="font-bold text-foreground leading-tight text-balance">

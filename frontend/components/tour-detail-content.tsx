@@ -15,6 +15,7 @@ import {
   Square,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { MapboxRouteMap } from "@/components/mapbox-route-map";
 
 export function TourDetailContent() {
@@ -108,11 +109,14 @@ export function TourDetailContent() {
 
   return (
     <div className="flex flex-col pb-36">
-      <div className="relative h-72 shrink-0">
-        <img
+      <div className="relative h-72 shrink-0 w-full">
+        <Image
           src={tour.coverImage}
           alt={localizedTitle}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
         />
         <div className="absolute inset-0 bg-linear-to-t from-navy via-navy/30 to-transparent" />
 

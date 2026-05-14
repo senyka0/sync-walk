@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Clock, MapPin } from "lucide-react";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
@@ -21,11 +22,13 @@ export function TourCard({ tour, variant = "vertical" }: TourCardProps) {
     return (
       <Link href={`/tours/${tour.id}`} className="block active-scale">
         <div className="relative w-52 rounded-2xl overflow-hidden shadow-md bg-card shrink-0">
-          <div className="relative h-36">
-            <img
+          <div className="relative h-36 w-full">
+            <Image
               src={tour.coverImage}
               alt={localizedTitle}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="208px"
             />
             <div className="absolute inset-0 bg-linear-to-t from-navy/80 via-navy/20 to-transparent" />
             <div className="absolute bottom-2 left-2 right-2">
@@ -56,11 +59,13 @@ export function TourCard({ tour, variant = "vertical" }: TourCardProps) {
   return (
     <Link href={`/tours/${tour.id}`} className="block active-scale">
       <div className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border">
-        <div className="relative h-44">
-          <img
+        <div className="relative h-44 w-full">
+          <Image
             src={tour.coverImage}
             alt={localizedTitle}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 400px"
           />
           <div className="absolute inset-0 bg-linear-to-t from-navy/60 to-transparent" />
         </div>
