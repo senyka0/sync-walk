@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { useRouter } from "next/navigation"
-import AppShell from "@/components/app-shell"
-import { useAppStore } from "@/store"
-import { useI18n } from "@/lib/i18n"
+import { useRouter } from "next/navigation";
+import AppShell from "@/components/app-shell";
+import { useAppStore } from "@/store";
+import { useI18n } from "@/lib/i18n";
 
 export default function LanguageSettingsPage() {
-  const router = useRouter()
-  const language = useAppStore((s) => s.language)
-  const setLanguage = useAppStore((s) => s.setLanguage)
-  const dict = useI18n()
+  const router = useRouter();
+  const language = useAppStore((s) => s.language);
+  const setLanguage = useAppStore((s) => s.setLanguage);
+  const dict = useI18n();
 
   const handleSelect = (lang: "en" | "uk") => {
-    setLanguage(lang)
-    router.back()
-  }
+    setLanguage(lang);
+    router.push("/profile");
+  };
 
   return (
     <AppShell>
@@ -60,5 +60,5 @@ export default function LanguageSettingsPage() {
         </div>
       </main>
     </AppShell>
-  )
+  );
 }

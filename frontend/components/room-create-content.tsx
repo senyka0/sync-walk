@@ -23,7 +23,9 @@ export function RoomCreateContent() {
 
   const tour = tours.find((t) => t.id === tourId);
   const localizedTourTitle =
-    language === "uk" ? (tour?.titleUk ?? tour?.title ?? "") : (tour?.title ?? "");
+    language === "uk"
+      ? (tour?.titleUk ?? tour?.title ?? "")
+      : (tour?.title ?? "");
 
   useSocket(currentRoom?.id ?? null);
 
@@ -72,7 +74,7 @@ export function RoomCreateContent() {
     <div className="flex flex-col min-h-screen px-5 page-enter">
       <div className="flex items-center gap-3 pt-4 pb-6">
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push(`/tours/${tourId}/group`)}
           className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >

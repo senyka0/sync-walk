@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAppStore } from "@/store";
 import { useI18n } from "@/lib/i18n";
 import { getApiErrorMessage } from "@/lib/api";
@@ -12,6 +12,15 @@ import { GoogleAuthButton } from "@/components/google-auth-button";
 
 export function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const rawNext = searchParams.get("next");
+  const backHref =
+    rawNext &&
+    rawNext.startsWith("/") &&
+    !rawNext.startsWith("//") &&
+    !rawNext.includes(":")
+      ? rawNext
+      : "/";
   const { login } = useAppStore();
   const dict = useI18n();
   const [email, setEmail] = useState("");
@@ -41,7 +50,7 @@ export function LoginContent() {
     <div className="flex flex-col min-h-screen bg-background px-5 page-enter">
       <div className="pt-4 pb-3">
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push(backHref)}
           className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >

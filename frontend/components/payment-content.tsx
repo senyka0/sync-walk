@@ -47,8 +47,12 @@ export function PaymentContent() {
   } = useAppStore();
   const tour = tours.find((t) => t.id === tourId);
   const dict = useI18n();
+  const payBackHref =
+    groupType === "group" ? `/tours/${tourId}/group` : `/tours/${tourId}`;
   const localizedTitle =
-    language === "uk" ? (tour?.titleUk ?? tour?.title ?? "") : (tour?.title ?? "");
+    language === "uk"
+      ? (tour?.titleUk ?? tour?.title ?? "")
+      : (tour?.title ?? "");
   const cityLabel =
     language === "uk"
       ? tour?.city === "kyiv"
@@ -155,14 +159,7 @@ export function PaymentContent() {
     return () => {
       isActive = false;
     };
-  }, [
-    orderRef,
-    tourId,
-    groupType,
-    checkPaymentStatus,
-    resetPayment,
-    router,
-  ]);
+  }, [orderRef, tourId, groupType, checkPaymentStatus, resetPayment, router]);
 
   useEffect(() => {
     if (paymentStatus === "success" && hasStarted) {
@@ -207,7 +204,7 @@ export function PaymentContent() {
     <div className="flex flex-col min-h-screen px-5 page-enter">
       <div className="flex items-center gap-3 pt-4 pb-6">
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push(payBackHref)}
           className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >

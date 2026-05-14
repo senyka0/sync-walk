@@ -18,7 +18,10 @@ export function MyToursContent() {
   const [resolvedTours, setResolvedTours] = useState<Tour[]>([]);
 
   const purchasedIds = useMemo(
-    () => Object.keys(purchasedAccess ?? {}).filter((id) => Boolean(purchasedAccess[id])),
+    () =>
+      Object.keys(purchasedAccess ?? {}).filter((id) =>
+        Boolean(purchasedAccess[id]),
+      ),
     [purchasedAccess],
   );
 
@@ -70,13 +73,15 @@ export function MyToursContent() {
     <div className="flex flex-col pb-safe page-enter">
       <div className="flex items-center gap-3 px-5 pt-4 pb-5">
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push("/profile")}
           className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-xl font-bold text-foreground">{dict.myTours.title}</h1>
+        <h1 className="text-xl font-bold text-foreground">
+          {dict.myTours.title}
+        </h1>
       </div>
 
       {resolvedTours.length === 0 ? (

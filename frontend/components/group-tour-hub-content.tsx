@@ -50,7 +50,7 @@ export function GroupTourHubContent() {
       <div className="px-5 pt-4 pb-2 shrink-0">
         <button
           type="button"
-          onClick={() => router.back()}
+          onClick={() => router.push(`/tours/${tourId}`)}
           className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >

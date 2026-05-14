@@ -117,7 +117,7 @@ export function TourDetailContent() {
         <div className="absolute inset-0 bg-linear-to-t from-navy via-navy/30 to-transparent" />
 
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push("/")}
           className="absolute top-4 left-4 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center active-scale"
           aria-label={dict.common.back}
         >
