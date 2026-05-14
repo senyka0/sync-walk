@@ -99,9 +99,6 @@ export function GroupTourHubContent() {
               <span className="text-[10px] uppercase font-semibold tracking-wide text-white/80">
                 {dict.tour.groupHub.joinGroupLine}
               </span>
-              <span className="text-xs font-medium text-white/80 wrap-break-word">
-                {dict.tour.groupHub.joinGroupHint}
-              </span>
             </div>
           </Link>
           <Link
@@ -113,17 +110,6 @@ export function GroupTourHubContent() {
                 {hasGroup
                   ? dict.tour.groupHub.startGroupLine
                   : dict.tour.groupHub.buyGroupLine}
-              </span>
-              <span
-                className={
-                  hasGroup
-                    ? "text-xs font-medium text-[#0B1320]/75 wrap-break-word"
-                    : "text-lg font-bold leading-tight text-[#0B1320]"
-                }
-              >
-                {hasGroup
-                  ? dict.tour.upToPeople.replace("{count}", maxStr)
-                  : `₴${tour.groupPrice}`}
               </span>
             </div>
             <div className="shrink-0 flex flex-col items-end text-[10px] font-medium text-[#0B1320]/80">
