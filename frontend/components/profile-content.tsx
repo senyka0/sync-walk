@@ -13,8 +13,10 @@ import {
   Sun,
   Moon,
   Users,
+  Bug,
 } from "lucide-react";
 import { toast } from "sonner";
+import { BugReportDialog } from "@/components/bug-report-dialog";
 
 export function ProfileContent() {
   const router = useRouter();
@@ -154,7 +156,6 @@ export function ProfileContent() {
             />
           </button>
         </div>
-
         <Link
           href="/settings/language"
           className="flex items-center gap-4 bg-card rounded-2xl p-4 border border-border active-scale w-full text-left"
@@ -174,7 +175,23 @@ export function ProfileContent() {
           </div>
           <ChevronRight className="w-4 h-4 text-muted-foreground" />
         </Link>
-
+        <BugReportDialog
+          context={{ source: "bug_report" }}
+          triggerClassName="w-full flex items-center gap-4 bg-card rounded-2xl p-4 border border-border active-scale text-left justify-start font-normal"
+        >
+          <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center shrink-0">
+            <Bug className="w-5 h-5 text-muted-foreground" />
+          </div>
+          <div className="flex-1 min-w-0 text-left">
+            <p className="font-semibold text-foreground text-sm">
+              {dict.feedback.reportBug}
+            </p>
+            <p className="text-xs text-muted-foreground line-clamp-2">
+              {dict.feedback.reportDescription}
+            </p>
+          </div>
+          <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+        </BugReportDialog>
         <button
           onClick={handleLogout}
           className="flex items-center gap-4 bg-card rounded-2xl p-4 border border-destructive/30 active-scale w-full text-left"
