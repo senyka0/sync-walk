@@ -43,7 +43,7 @@ export function BottomTabBar() {
               />
               <span
                 className={`text-[10px] font-semibold tracking-wide ${
-                  isActive ? "text-secondary" : "text-muted-foreground"
+                  isActive ? "text-primary" : "text-muted-foreground"
                 }`}
               >
                 {label}

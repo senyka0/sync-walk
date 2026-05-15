@@ -427,6 +427,17 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
           <div className="flex flex-col gap-3 sm:gap-4 shrink-0">
             <div className="flex items-center justify-center gap-2 sm:gap-6 md:gap-8">
               <button
+                onClick={toggleMute}
+                className="w-10 h-10 rounded-full bg-primary text-white dark:bg-primary flex items-center justify-center active-scale shadow-md sm:w-11 sm:h-11"
+                aria-label={isMuted ? dict.roomLive.unmute : dict.roomLive.mute}
+              >
+                {isMuted ? (
+                  <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
+                ) : (
+                  <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                )}
+              </button>
+              <button
                 onClick={prevTrack}
                 className="w-10 h-10 rounded-full bg-primary text-white dark:bg-primary flex items-center justify-center active-scale shadow-md sm:w-11 sm:h-11"
                 aria-label={dict.roomLive.previousStop}
@@ -454,18 +465,6 @@ export function RoomLiveContent({ isSolo = false }: { isSolo?: boolean }) {
                 aria-label={dict.roomLive.nextStop}
               >
                 <SkipForward className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-
-              <button
-                onClick={toggleMute}
-                className="w-10 h-10 rounded-full bg-primary text-white dark:bg-primary flex items-center justify-center active-scale shadow-md sm:w-11 sm:h-11"
-                aria-label={isMuted ? dict.roomLive.unmute : dict.roomLive.mute}
-              >
-                {isMuted ? (
-                  <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
-                ) : (
-                  <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
-                )}
               </button>
             </div>
 

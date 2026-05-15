@@ -113,14 +113,7 @@ export function GroupTourHubContent() {
               </span>
             </div>
             <div className="shrink-0 flex flex-col items-end text-[10px] font-medium text-[#0B1320]/80">
-              {hasGroup ? (
-                <div className="shrink-0 flex items-center gap-2 text-xs font-semibold bg-[#0B1320]/10 rounded-full px-3 py-1">
-                  <Navigation className="w-3.5 h-3.5" />
-                  <span>{dict.common.start}</span>
-                </div>
-              ) : (
-                <span>{dict.tour.upToPeople.replace("{count}", maxStr)}</span>
-              )}
+              <span>{dict.tour.upToPeople.replace("{count}", maxStr)}</span>
             </div>
           </Link>
         </div>
