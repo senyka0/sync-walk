@@ -56,9 +56,7 @@ export function TourDetailContent() {
   const tour = currentTour;
   const access = isAuthenticated ? purchasedAccess[tour.id] : undefined;
   const authHref = `/auth/login?next=${encodeURIComponent(`/tours/${tour.id}`)}`;
-  const groupHubHref = isAuthenticated
-    ? `/tours/${tour.id}/group`
-    : `/auth/login?next=${encodeURIComponent(`/tours/${tour.id}/group`)}`;
+  const groupHubHref = `/tours/${tour.id}/group`;
   const soloBuyHref = isAuthenticated
     ? `/pay/${tour.id}?type=individual`
     : authHref;
@@ -240,7 +238,7 @@ export function TourDetailContent() {
                       ? (point.descriptionUk ?? point.description)
                       : point.description}
                   </p>
-                  {index === 0 && !access ? (
+                  {index === 0 ? (
                     <Link
                       href={`/tours/${tour.id}/demo`}
                       className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-coral px-3 py-1.5 text-xs font-semibold text-white active-scale"
@@ -299,9 +297,6 @@ export function TourDetailContent() {
                 <div className="flex min-w-0 flex-col items-start">
                   <span className="text-[10px] uppercase font-semibold tracking-wide text-white/80">
                     {dict.tour.listenSolo}
-                  </span>
-                  <span className="text-xs font-medium text-white/80 wrap-break-word">
-                    {dict.tour.ownSoloAccess}
                   </span>
                 </div>
                 <div className="shrink-0 flex items-center gap-1.5 text-xs font-semibold bg-white/15 rounded-full px-2.5 py-1">
