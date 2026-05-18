@@ -149,8 +149,7 @@ const dictionary = {
       dismissBetaBanner: "Close beta banner",
       reportBug: "Report a bug",
       reportTitle: "Report a bug",
-      reportDescription:
-        "Describe what happened. We will attach browser and device details automatically.",
+      reportDescription: "Describe what happened.",
       reportPlaceholder: "What went wrong?",
       techDataHint:
         "The report will include URL, phone/browser details, viewport, language, and time zone.",
@@ -426,8 +425,7 @@ const dictionary = {
       dismissBetaBanner: "Закрити beta-банер",
       reportBug: "Повідомити про помилку",
       reportTitle: "Повідомити про помилку",
-      reportDescription:
-        "Опишіть, що сталося. Дані браузера та пристрою додамо автоматично.",
+      reportDescription: "Опишіть, що сталося.",
       reportPlaceholder: "Що пішло не так?",
       techDataHint:
         "До звіту додамо URL, дані телефону/браузера, розмір екрана, мову та часовий пояс.",
