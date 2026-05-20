@@ -1,4 +1,5 @@
 import AppShell from "@/components/app-shell";
+import { BinotelChatWidget } from "@/components/binotel-chat-widget";
 import { ProfileContent } from "@/components/profile-content";
 
 export default function ProfilePage() {
@@ -6,6 +7,7 @@ export default function ProfilePage() {
     <AppShell>
       <main className="page-enter">
         <ProfileContent />
+        <BinotelChatWidget />
       </main>
     </AppShell>
   );
