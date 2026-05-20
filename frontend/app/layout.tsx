@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
+import { BinotelChatWidget } from "@/components/binotel-chat-widget";
 import { BetaBanner } from "@/components/beta-banner";
 import { PWAInstallBanner } from "@/components/pwa-install-banner";
 import "./globals.css";
@@ -47,6 +48,7 @@ export default function RootLayout({
     <html lang="uk" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
+        <BinotelChatWidget />
         <BetaBanner />
         <PWAInstallBanner />
         <Toaster
